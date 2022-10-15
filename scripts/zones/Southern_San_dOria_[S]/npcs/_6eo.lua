@@ -31,6 +31,8 @@ entity.onEventFinish = function(player, csid, option)
             player:completeQuest(xi.quest.log_id.CRYSTAL_WAR, xi.quest.id.crystalWar.KNOT_QUITE_THERE)
             player:addItem(751)
             player:messageSpecial(ID.text.ITEM_OBTAINED, 751) --Platinum Beastcoin
+	    player:addItem(10120)
+	    player:messageSpecial(ID.text.ITEM_OBTAINED, 10120) --Cipher: Lehko
             player:setCharVar("KnotQuiteThere", 0)
         end
     end

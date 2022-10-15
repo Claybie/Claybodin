@@ -24,6 +24,7 @@ local mission = Mission:new(xi.mission.log_id.BASTOK, xi.mission.id.bastok.DARKN
 mission.reward =
 {
     rankPoints = 600,
+    item       = 10112,
 }
 
 -- The message KI is removed here to still preserve this mission should a player decline and

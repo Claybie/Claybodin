@@ -19,6 +19,7 @@ local mission = Mission:new(xi.mission.log_id.TOAU, xi.mission.id.toau.IMPERIAL_
 mission.reward =
 {
     nextMission = { xi.mission.log_id.TOAU, xi.mission.id.toau.ROYAL_PUPPETEER },
+    item        = 10118
 }
 
 mission.sections =

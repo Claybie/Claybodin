@@ -550,6 +550,7 @@ xi.shop =
                 5988,     500,      xi.ki.RHAPSODY_IN_WHITE,   -- Instant Protect
                 5989,     500,      xi.ki.RHAPSODY_IN_WHITE,   -- Instant Shell
                 5990,     500,      xi.ki.RHAPSODY_IN_UMBER,   -- Instant Stoneskin
+
         },
         [curio.keys] =
         {

@@ -24,6 +24,7 @@ local mission = Mission:new(xi.mission.log_id.WINDURST, xi.mission.id.windurst.T
 mission.reward =
 {
     rankPoints = 600,
+    item       = 10112,
 }
 
 local handleAcceptMission = function(player, csid, option, npc)

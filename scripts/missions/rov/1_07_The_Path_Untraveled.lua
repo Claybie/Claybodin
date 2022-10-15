@@ -20,6 +20,7 @@ local mission = Mission:new(xi.mission.log_id.ROV, xi.mission.id.rov.THE_PATH_UN
 mission.reward =
 {
     nextMission = { xi.mission.log_id.ROV, xi.mission.id.rov.AT_THE_HEAVENS_DOOR },
+    item        = 10113
 }
 
 mission.sections =
@@ -68,6 +69,7 @@ mission.sections =
                 [14] = function(player, csid, option, npc)
                     mission:complete(player)
                 end,
+
             },
         },
 
