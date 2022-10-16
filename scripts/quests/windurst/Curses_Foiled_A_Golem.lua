@@ -21,6 +21,8 @@ quest.reward =
     fame     = 120,
     fameArea = xi.quest.fame_area.WINDURST,
     item     = xi.items.SCROLL_OF_WARP_II,
+    item     = 10187,
+    item     = 10129,
     title    = xi.title.DOCTOR_SHANTOTTOS_FLAVOR_OF_THE_MONTH,
 }
 
