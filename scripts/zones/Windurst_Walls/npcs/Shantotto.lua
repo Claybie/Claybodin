@@ -85,7 +85,74 @@ entity.onTrigger = function(player, npc)
 end
 
 entity.onEventFinish = function(player, csid, option)
+<<<<<<< Updated upstream
     if (csid == 409) then
+=======
+    if (csid == 173) then
+        if (player:getFreeSlotsCount() == 0) then
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED, 17081)
+        else
+            player:tradeComplete()
+            player:setCharVar("CursesFoiledAgainDay", VanadielDayOfTheYear())
+            player:setCharVar("CursesFoiledAgainYear", VanadielYear())
+            player:addFame(xi.quest.fame_area.WINDURST, 80)
+            player:addItem(17081)
+            player:messageSpecial(ID.text.ITEM_OBTAINED, 17081)
+            player:completeQuest(xi.quest.log_id.WINDURST, xi.quest.id.windurst.CURSES_FOILED_AGAIN_1)
+        end
+    elseif (csid == 171 and option ~= 1) then
+        player:addQuest(xi.quest.log_id.WINDURST, xi.quest.id.windurst.CURSES_FOILED_AGAIN_1)
+
+    elseif (csid == 179) then
+        player:setCharVar("CursesFoiledAgainDayFinished", 0)
+        player:setCharVar("CursesFoiledAgainYearFinished", 0)
+        player:setCharVar("CursesFoiledAgainDay", 0)
+        player:setCharVar("CursesFoiledAgainYear", 0)
+        player:setCharVar("CursesFoiledAgain", 1) -- Used to acknowledge that the two days have passed, Use this to initiate next quest
+        player:needToZone(true)
+
+    elseif (csid == 180 and option == 3) then
+        player:setCharVar("CursesFoiledAgain", 0)
+        player:addQuest(xi.quest.log_id.WINDURST, xi.quest.id.windurst.CURSES_FOILED_AGAIN_2)
+        player:setTitle(xi.title.TARUTARU_MURDER_SUSPECT)
+
+    elseif (csid == 183) then
+        if (player:getFreeSlotsCount() == 0) then
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED, 17116)
+        else
+            player:tradeComplete()
+            player:setTitle(xi.title.HEXER_VEXER)
+            player:addItem(17116)
+            player:messageSpecial(ID.text.ITEM_OBTAINED, 17116)
+            player:completeQuest(xi.quest.log_id.WINDURST, xi.quest.id.windurst.CURSES_FOILED_AGAIN_2)
+            player:needToZone(true)
+            player:addFame(xi.quest.fame_area.WINDURST, 90)
+        end
+
+    elseif (csid == 340) then
+        if (option == 1) then
+            player:addQuest(xi.quest.log_id.WINDURST, xi.quest.id.windurst.CURSES_FOILED_A_GOLEM)
+        else
+            player:setTitle(xi.title.TOTAL_LOSER)
+        end
+
+    elseif (csid == 342) then
+        if (player:getFreeSlotsCount() == 0) then
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED, 4870)
+        else
+            player:completeQuest(xi.quest.log_id.WINDURST, xi.quest.id.windurst.CURSES_FOILED_A_GOLEM)
+            player:setCharVar("foiledagolemdeliverycomplete", 0)
+            player:addItem(4870)
+            player:messageSpecial(ID.text.ITEM_OBTAINED, 4870)
+            player:setTitle(xi.title.DOCTOR_SHANTOTTOS_FLAVOR_OF_THE_MONTH)
+            player:addFame(xi.quest.fame_area.WINDURST, 120)
+	    player:addSpell(934, true, true)
+	    player:addSpell(1019, true, true)
+	    player:messageSpecial(ID.text.YOU_LEARNED_TRUST, 0, 934)
+	    player:messageSpecial(ID.text.YOU_LEARNED_TRUST, 0, 1019)
+        end
+    elseif (csid == 409) then
+>>>>>>> Stashed changes
         player:setCharVar("ClassReunionProgress", 4)
     elseif (csid == 498) then
         player:setCharVar("WildcatWindurst", utils.mask.setBit(player:getCharVar("WildcatWindurst"), 6, true))
