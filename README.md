@@ -1,6 +1,5 @@
 <p align="center">
-    <img width="256" height="256" src="res/lsb_logo_circle.png">
-    <h1 align="center">LandSandBoat</h1>
+    <h1 align="center">Claybodin</h1>
 </p>
 
 <p align="center">
@@ -11,23 +10,30 @@
 <a href="https://github.com/LandSandBoat/server/pulls"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"/></a>
 </p>
 
-Welcome to LandSandBoat, an open source server emulator for FFXI.
+## A Final Fantasy XI Private Server
 
-## Getting Started
+This repo is the source code for what the server I host runs on and is an almost 1:1 clone of the LandSandBoat project base repository, with some very minor changes, including:
 
-A [quick start guide](https://github.com/LandSandBoat/server/wiki/Quick-Start-Guide), the [frequently asked questions](https://github.com/LandSandBoat/server/-/wikis/Frequently-Asked-Questions), and a table of "[what works](https://github.com/LandSandBoat/server/wikis/What-Works)" are all available on [our wiki](https://github.com/LandSandBoat/server/wiki).
+<ul>
+    <li>Some Login Campaign Trusts have been changed to quest rewards.</li>
+    <li>Battle Skillups have been removed from the game.<ul>
+            <li>Characters are always at maximum skill for their level.</li>
+            <li>Crafting Skillups still exist and function like retail.</li>
+        </ul>
+    </li>
+        
+</ul>
 
-## Interacting with LandSandBoat
 
-### Crashes, bugs, obvious gameplay issues etc
 
-Please search the [issues tab](https://github.com/LandSandBoat/server/issues) and see if your issue is already logged, or create a new one.
+Visit the LandSandBoat [project page](https://github.com/LandSandBoat/server/) for more info. LandSandBoat is licensed under [GNU GPL v3](https://github.com/LandSandBoat/server/blob/base/LICENSE)
 
-### Balance discussion, technical discussion, meta discussions etc
+## How To Play
 
-For topics with less direction than issues, a discussion is probably a better fit.
-Please search the [discussions tab](https://github.com/LandSandBoat/server/discussions) and see if your topic has already been discussed, or create a new one.
+Connect to the server address claybodin.mywire.net using [Ashita](https://ashitaxi.com/) 
 
-## LICENSE
+Improve the game's visuals with [XI-View](https://github.com/Caradog/XI-View) and [AshenbubsHD Texture Pack](https://www.nexusmods.com/finalfantasy11/mods/1)
 
-LandSandBoat is licensed under [GNU GPL v3](https://github.com/LandSandBoat/server/blob/base/LICENSE)
+## Support
+
+I expect to keep the server online 24/7 and synced with upstream daily. That said, I do not have the time or resources to provide user support of any kind, so temper your expectations before playing.
