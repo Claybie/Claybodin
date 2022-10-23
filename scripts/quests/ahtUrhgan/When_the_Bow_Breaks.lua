@@ -19,6 +19,7 @@ local quest = Quest:new(xi.quest.log_id.AHT_URHGAN, xi.quest.id.ahtUrhgan.WHEN_T
 quest.reward =
 {
     title = xi.title.GALESERPENT_GUARDIAN,
+    item  = 10125
 }
 
 quest.sections =
