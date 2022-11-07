@@ -18,7 +18,7 @@ entity.onMobFight = function(mob, target)
         return
     end
 
-    if mob:hasStatusEffect(xi.effect.INVINCIBLE) == false and mob:actionQueueEmpty() == true then
+    if not mob:hasStatusEffect(xi.effect.INVINCIBLE) and mob:actionQueueEmpty() then
         local changeTime = mob:getLocalVar("changeTime")
         local twohourTime = mob:getLocalVar("twohourTime")
 
@@ -30,7 +30,7 @@ entity.onMobFight = function(mob, target)
         if mob:getAnimationSub() == 2 and mob:getBattleTime() / 15 > twohourTime then
             mob:useMobAbility(694)
             mob:setLocalVar("twohourTime", math.random((mob:getBattleTime() / 15) + 12, (mob:getBattleTime() / 15) + 16))
-        elseif (mob:getAnimationSub() == 0 and mob:getBattleTime() - changeTime > 60) then
+        elseif mob:getAnimationSub() == 0 and mob:getBattleTime() - changeTime > 60 then
             mob:setAnimationSub(1)
             mob:addStatusEffectEx(xi.effect.ALL_MISS, 0, 1, 0, 0)
             mob:SetMobSkillAttack(731)
