@@ -54,7 +54,7 @@ zoneObject.onConquestUpdate = function(zone, updatetype)
     xi.conq.onConquestUpdate(zone, updatetype)
 end
 
-zoneObject.onRegionEnter = function(player, region)
+zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
 zoneObject.onEventUpdate = function(player, csid, option)
@@ -69,9 +69,16 @@ end
 zoneObject.onZoneWeatherChange = function(weather)
     local kvMob = GetMobByID(ID.mob.KING_VINEGARROON)
 
-    if kvMob:getCurrentAction() == xi.act.DESPAWN and (weather == xi.weather.DUST_STORM or weather == xi.weather.SAND_STORM) then
+    if
+        kvMob:getCurrentAction() == xi.act.DESPAWN and
+        (weather == xi.weather.DUST_STORM or weather == xi.weather.SAND_STORM)
+    then
         kvMob:spawn()
-    elseif kvMob:getCurrentAction() == xi.act.ROAMING and weather ~= xi.weather.DUST_STORM and weather ~= xi.weather.SAND_STORM then
+    elseif
+        kvMob:getCurrentAction() == xi.act.ROAMING and
+        weather ~= xi.weather.DUST_STORM and
+        weather ~= xi.weather.SAND_STORM
+    then
         DespawnMob(ID.mob.KING_VINEGARROON)
     end
 end

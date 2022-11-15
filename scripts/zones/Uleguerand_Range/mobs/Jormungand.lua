@@ -10,7 +10,7 @@ local entity = {}
 local function setupFlightMode(mob, battleTime)
     mob:setAnimationSub(1)
     mob:addStatusEffectEx(xi.effect.ALL_MISS, 0, 1, 0, 0)
-    mob:SetMobSkillAttack(732)
+    mob:setMobSkillAttack(732)
     mob:setLocalVar("changeTime", battleTime)
 end
 
@@ -20,13 +20,16 @@ end
 
 entity.onMobSpawn = function(mob)
     -- Reset animation so it starts grounded.
-    mob:SetMobSkillAttack(0)
+    mob:setMobSkillAttack(0)
     mob:setAnimationSub(0)
 end
 
 entity.onMobFight = function(mob, target)
     -- Animation (Ground or flight mode) logic.
-    if not mob:hasStatusEffect(xi.effect.BLOOD_WEAPON) and mob:actionQueueEmpty() then
+    if
+        not mob:hasStatusEffect(xi.effect.BLOOD_WEAPON) and
+        mob:actionQueueEmpty()
+    then
         local changeTime  = mob:getLocalVar("changeTime")
         local twohourTime = mob:getLocalVar("twohourTime")
         local battleTime  = mob:getBattleTime()

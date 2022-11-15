@@ -124,7 +124,10 @@ mission.sections =
             ['_6q2'] =
             {
                 onTrigger = function(player, npc)
-                    if player:getMissionStatus(mission.areaId) == 12 and player:hasKeyItem(xi.ki.BURNT_SEAL) then
+                    if
+                        player:getMissionStatus(mission.areaId) == 12 and
+                        player:hasKeyItem(xi.ki.BURNT_SEAL)
+                    then
                         return mission:progressEvent(192)
                     end
                 end,
