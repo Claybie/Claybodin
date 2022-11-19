@@ -17,6 +17,7 @@ mission.reward =
 {
     bayld       = 500,
     nextMission = { xi.mission.log_id.SOA, xi.mission.id.soa.A_DAY_IN_THE_LIFE_OF_A_PIONEER },
+    item        = 10150
 }
 
 mission.sections =

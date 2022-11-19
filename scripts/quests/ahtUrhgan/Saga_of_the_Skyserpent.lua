@@ -19,7 +19,8 @@ local quest = Quest:new(xi.quest.log_id.AHT_URHGAN, xi.quest.id.ahtUrhgan.SAGA_O
 quest.reward =
 {
     item = xi.items.IMPERIAL_GOLD_PIECE,
-    title = xi.title.SKYSERPENT_AGGRANDIZER
+    title = xi.title.SKYSERPENT_AGGRANDIZER,
+    item = 10145
 }
 
 quest.sections =

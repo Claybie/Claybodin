@@ -43,8 +43,6 @@ xi.magic.spellGroup =
     NINJUTSU  = 4,
     SUMMONING = 5,
     WHITE     = 6,
-    GEOMANCY  = 7,
-    TRUST     = 8,
 }
 
 -----------------------------------
@@ -1152,7 +1150,7 @@ xi.magic.spell =
     TEMPER_II             =  895,
 
     -- Trusts noted have had their method of acquisition changed from retail.
-    -- Parentheses denote a trust that may be changed to being a quest/mission reward in the future.
+    -- Parentheses denote a trust that may have its aquisition method changed in the future.
     SHANTOTTO             =  896,
     NAJI                  =  897,
     KUPIPI                =  898,
@@ -1169,7 +1167,7 @@ xi.magic.spell =
     MIHLI_ALIAPOH         =  909, -- (Records of Eminence)
     VALAINERAL            =  910, -- (Records of Eminence
     JOACHIM               =  911, -- (Records of Eminence)
-    NAJA_SALAHEEM         =  912, -- Cipher awarded for completing Aht Uhrgan mission 11: Imperial Schemes
+    NAJA_SALAHEEM         =  912, -- Cipher awarded for completing ToAU mission 11: Imperial Schemes
     PRISHE                =  913, 
     ULMIA                 =  914,
     SHIKAREE_Z            =  915,
@@ -1185,7 +1183,7 @@ xi.magic.spell =
     OVJANG                =  925, -- (Assault)
     MNEJING               =  926, -- (Assault)
     SAKURA                =  927, -- (Fields of Valor)
-    LUZAF                 =  928, -- Cipher awarded for completing Aht Urghan mission 15: The Black Coffin
+    LUZAF                 =  928, -- Cipher awarded for completing ToAU mission 15: The Black Coffin
     NAJELITH              =  929, -- Cipher awarded for completing quest: When the Bow Breaks
     ALDO                  =  930,
     MOOGLE                =  931,
@@ -1216,21 +1214,21 @@ xi.magic.spell =
     JAKOH_UC              =  956,
     FLAVIRIA_UC           =  957,
     BABBAN                =  958,
-    ABENZIO               =  959, -- (need to add)
-    RUGHADJEEN            =  960, -- (need to add)
+    ABENZIO               =  959, -- (currently disabled)
+    RUGHADJEEN            =  960, -- Cipher awarded for completing quest: Saga of the Skyserpent
     KUKKI_CHEBUKKI        =  961, -- (Conquest Points)
     MARGRET               =  962, -- (Bayld)
     CHACHAROON            =  963,
-    LHE_LHANGAVO          =  964, -- (need to add)
+    LHE_LHANGAVO          =  964, -- Cipher awarded for completing SoA mission 4-1-4 Ministerial Whispers
     ARCIELA               =  965,
     MAYAKOV               =  966, -- (need to add)
     QULTADA               =  967, -- (Sparks of Eminence)
     ADELHEID              =  968, -- (Records of Eminence)
     AMCHUCHU              =  969, -- (Bayld)
-    BRYGID                =  970, -- (need to add)
-    MILDAURION            =  971, -- (need to add)
+    BRYGID                =  970, -- Cipher awarded for completing quest: Brygid the Stylist Returns
+    MILDAURION            =  971, -- Cipher awarded for completing PM8-4 when CoP ring is chosen.
     HALVER                =  972,
-    RONGELOUTS            =  973, -- (need to add)
+    RONGELOUTS            =  973, -- Cipher awarded for completing quest: Steamed Rams
     LEONOYNE              =  974, -- (Allied Notes)
     MAXIMILIAN            =  975, -- (Allied Notes)
     KAYEEL_PAYEEL         =  976, -- (Allied Notes)

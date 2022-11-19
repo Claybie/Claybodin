@@ -23,6 +23,7 @@ local quest = Quest:new(xi.quest.log_id.CRYSTAL_WAR, xi.quest.id.crystalWar.STEA
 quest.reward =
 {
     title = xi.title.KNIGHT_OF_THE_IRON_RAM,
+    item  = 10161
 }
 
 quest.sections =
