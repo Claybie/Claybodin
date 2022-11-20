@@ -3,8 +3,7 @@
 </p>
 
 <p align="center">
-<a href="https://github.com/Claybie/claybodin/actions/workflows/build.yml?query=base"><img src="https://github.com/LandSandBoat/server/actions/workflows/build.yml/badge.svg"/></a>
-<a href="https://github.com/claybie/claybodin/actions?query=workflow%3ACodeQL"><img src="https://github.com/claybie/claybodin/workflows/CodeQL/badge.svg"/></a>
+<a href="https://github.com/Claybie/claybodin/actions/workflows/build.yml?query=base"><img src="https://github.com/claybie/claybodin/actions/workflows/build.yml/badge.svg"/></a>
 <a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg"/></a>
 
 </p>
