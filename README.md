@@ -4,7 +4,7 @@
 
 <p align="center">
 <a href="https://github.com/Claybie/claybodin/actions/workflows/build.yml?query=base"><img src="https://github.com/LandSandBoat/server/actions/workflows/build.yml/badge.svg"/></a>
-<a href="https://app.snyk.io/org/claybie/project/0420e742-3891-4280-9d9e-817ec5d7979e"><img src="https://app.snyk.io/org/claybie/project/0420e742-3891-4280-9d9e-817ec5d7979e"></a>
+[![CodeQL](https://github.com/claybie/claybodin/workflows/CodeQL/badge.svg)](https://github.com/claybie/claybodin/actions?query=workflow%3ACodeQL)
 <a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg"/></a>
 
 </p>
