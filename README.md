@@ -9,7 +9,7 @@
 
 </p>
 
-## A Final Fantasy XI Private Server running on LandSandBoat
+## A Final Fantasy XI Private Server Running On LandSandBoat
 
 This repo hosts the code for the Claybodin private server. It is a fork of the LandSandBoat project base repository, with some minor customizations, including:
 
@@ -19,15 +19,15 @@ This repo hosts the code for the Claybodin private server. It is a fork of the L
     </li>
 </ul>
 
-The goal of the project is to maintain and add gameplay deviations from retail the I consider improvements, while staying up-to-date with upstream.
+The goal of the project is to maintain and add gameplay deviations from retail that I consider improvements, while staying up-to-date with upstream.
 
-Visit the LandSandBoat [project page](https://github.com/LandSandBoat/server/) for more info. LandSandBoat is licensed under [GNU GPL v3](https://github.com/LandSandBoat/server/blob/base/LICENSE)
+Visit the LandSandBoat [project page](https://github.com/LandSandBoat/server/) for more info. LandSandBoat is licensed under [GNU GPL v3](https://github.com/LandSandBoat/server/blob/base/LICENSE).
 
 ## How To Play
 
-Connect to the server address claybodin.mywire.net using [Ashita](https://ashitaxi.com/) 
+Connect to the server address <b>claybodin.mywire.org</b> using [Ashita](https://ashitaxi.com/). 
 
-Improve the game's visuals with [XI-View](https://github.com/Caradog/XI-View) and [AshenbubsHD Texture Pack](https://www.nexusmods.com/finalfantasy11/mods/1)
+Improve the game's visuals with [XI-View](https://github.com/Caradog/XI-View) and [AshenbubsHD Texture Pack](https://www.nexusmods.com/finalfantasy11/mods/1).
 
 Join the [FFXiPrivateServers](https://discord.gg/THnWnC9fjr) discord server for information on private servers, LandSandBoat development, client setup for Windows & Linux and more!
 
