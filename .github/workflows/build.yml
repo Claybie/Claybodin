@@ -1,4 +1,4 @@
-name: "build-linux"
+name: "gcc/clang build"
 
 on:
   pull_request:
