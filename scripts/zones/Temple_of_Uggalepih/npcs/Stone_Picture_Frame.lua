@@ -54,7 +54,6 @@ entity.onTrigger = function(player, npc)
             player:messageSpecial(ID.text.PAINTBRUSH_OFFSET + 11) -- It is a painting of a sublime-looking woman.
         end
     end
-
 end
 
 entity.onEventUpdate = function(player, csid, option)
@@ -71,6 +70,7 @@ entity.onEventFinish = function(player, csid, option)
         else
             player:messageSpecial(ID.text.PAINTBRUSH_OFFSET + 21) -- You were unable to fill the canvas with an image from your soul.
         end
+
         player:setCharVar("started_painting", 0)
     end
 end
