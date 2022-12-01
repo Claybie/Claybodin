@@ -18,6 +18,7 @@ mission.reward =
 {
     keyItem     = xi.ki.COUNT_BORELS_LETTER,
     nextMission = { xi.mission.log_id.WOTG, xi.mission.id.wotg.BORNE_BY_THE_WIND },
+    item        = 10166,
 }
 
 mission.sections =
