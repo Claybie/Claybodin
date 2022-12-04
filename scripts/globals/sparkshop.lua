@@ -554,7 +554,7 @@ local optionToItem =
         [10138] = { cost =  550, id = xi.items.CIPHER_OF_CIDS_ALTER_EGO }, -- Cid
         [10148] = { cost =  500, id = xi.items.CIPHER_OF_GILGAMESHS_ALTER_EGO }, -- Gilgamesh
         [10152] = { cost =  500, id = xi.items.CIPHER_OF_QULTADAS_ALTER_EGO }, -- Qultada
-        [10181] = { cost =  500, id = xi.items.CIPHER_OF_KINGS_ALTER_EGO }, -- King 
+        [10181] = { cost =  500, id = xi.items.CIPHER_OF_KINGS_ALTER_EGO }, -- King
     },
     [20] = { -- Currency Exchange
         [ 0] = { amount = 1000, name = "spark_of_eminence"      },

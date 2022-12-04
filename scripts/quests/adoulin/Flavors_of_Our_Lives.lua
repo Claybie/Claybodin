@@ -25,6 +25,7 @@ quest.reward =
     xp    = 500,
     bayld = 300,
     title = xi.title.POTATION_PATHFINDER,
+    item  = 10179,
 }
 
 quest.sections =

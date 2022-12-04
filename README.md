@@ -14,8 +14,8 @@
 This repo hosts the code for the Claybodin private server. It is a fork of the LandSandBoat project base repository, with some minor customizations, including:
 
 <ul>
-    <li>Many Ciphers that are rewarded from Login Campaign points on retail have been changed to rewards from quests or missions that pertain to those characters. The goal is for all Trusts in the game to be acquired this way eventually. Claybodin does not run a Login Campaign. </li>
-    <li>Weapon/Magic skillups have been removed from the game; characters are always at max skill for their level. I consider the system archaic and out-of-place for the current era of the game.
+    <li>Many Ciphers that are rewarded from Login Campaign points on retail have been changed to rewards from quests or missions that pertain to those characters. Roadmap is for all Trusts to be acquired via storyline method, rather than with currency, FoV, RoE etc.  Claybodin does not run a Login Campaign. </li>
+    <li>Weapon/Magic skillups have been removed from the game; characters are always at max skill for their level. I consider the system archaic and out-of-place for the current era.
     </li>
 </ul>
 
