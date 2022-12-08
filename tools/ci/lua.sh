@@ -101,10 +101,6 @@ global_objects=(
     getMeleeDmg
     handleWSGorgetBelt
 
-    getRecommendedAssaultLevel
-
-    PATHFLAG_WALLHACK
-
     RoeParseTimed
     getRoeRecords
     RoeParseRecords
@@ -119,12 +115,8 @@ global_objects=(
     isHalloweenEnabled
     onHalloweenTrade
 
-    salvageUtil
-
     addBonuses
     addBonusesAbility
-    applyBarspell
-    applyBarstatus
     applyResistance
     applyResistanceAbility
     applyResistanceEffect
@@ -134,13 +126,7 @@ global_objects=(
     calculateMagicDamage
     calculatePotency
     canOverwrite
-    dayWeatherBonus
-    doBoostGain
-    doDivineBanishNuke
-    doDivineNuke
-    doElementalNuke
     doEnspell
-    doNinjutsuNuke
     finalMagicAdjustments
     finalMagicNonSpellAdjustments
     getBaseCure
@@ -163,16 +149,12 @@ global_objects=(
     handleThrenody
     hasSleepEffects
     isValidHealTarget
-    skillchainCount
     takeAbilityDamage
 
     FormMagicBurst
     MobFormMagicBurst
 
     AbilityFinalAdjustments
-
-    MOBSKILL_MAGICAL
-    MOBSKILL_PHYSICAL
 
     TPMOD_NONE
     TPMOD_CHANCE
@@ -205,13 +187,6 @@ global_objects=(
     BlueMagicalSpell
     BlueFinalAdjustments
     getBlueEffectDuration
-
-    LEUJAOAM_ASSAULT_POINT
-    MAMOOL_ASSAULT_POINT
-    LEBROS_ASSAULT_POINT
-    PERIQIA_ASSAULT_POINT
-    ILRUSI_ASSAULT_POINT
-    NYZUL_ISLE_ASSAULT_POINT
 
     ForceCrash
     BuildString
