@@ -2630,12 +2630,20 @@ void CLuaBaseEntity::setPos(sol::variadic_args va)
                 return;
             }
 
+            auto ipp = zoneutils::GetZoneIPP(zoneid);
+            if (ipp == 0)
+            {
+                ShowWarning(fmt::format("Char {} requested zone ({}) returned IPP of 0", PChar->name, zoneid));
+                PChar->pushPacket(new CMessageSystemPacket(0, 0, 2)); // You could not enter the next area.
+                return;
+            }
+
             PChar->loc.destination = zoneid;
             PChar->status          = STATUS_TYPE::DISAPPEAR;
             PChar->loc.boundary    = 0;
             PChar->m_moghouseID    = 0;
             PChar->clearPacketList();
-            charutils::SendToZone(PChar, 2, zoneutils::GetZoneIPP(PChar->loc.destination));
+            charutils::SendToZone(PChar, 2, ipp);
         }
         else if (PChar->status != STATUS_TYPE::DISAPPEAR)
         {
@@ -8019,11 +8027,11 @@ int32 CLuaBaseEntity::restoreMP(int32 amount)
  *  Example : player:delMP(1000)
  ************************************************************************/
 
-void CLuaBaseEntity::delMP(int32 amount)
+int32 CLuaBaseEntity::delMP(int32 amount)
 {
     XI_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
 
-    static_cast<CBattleEntity*>(m_PBaseEntity)->addMP(-amount);
+    return static_cast<CBattleEntity*>(m_PBaseEntity)->addMP(-amount);
 }
 
 /************************************************************************
@@ -8046,11 +8054,11 @@ float CLuaBaseEntity::getTP()
  *  Example : player:addTP(1000) - Icarus Wing
  ************************************************************************/
 
-void CLuaBaseEntity::addTP(int16 amount)
+int16 CLuaBaseEntity::addTP(int16 amount)
 {
     XI_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
 
-    static_cast<CBattleEntity*>(m_PBaseEntity)->addTP(amount);
+    return static_cast<CBattleEntity*>(m_PBaseEntity)->addTP(amount);
 }
 
 /************************************************************************
@@ -8074,11 +8082,11 @@ void CLuaBaseEntity::setTP(int16 value)
  *  Example : player:delTP(50)
  ************************************************************************/
 
-void CLuaBaseEntity::delTP(int16 amount)
+int16 CLuaBaseEntity::delTP(int16 amount)
 {
     XI_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
 
-    static_cast<CBattleEntity*>(m_PBaseEntity)->addTP(-amount);
+    return static_cast<CBattleEntity*>(m_PBaseEntity)->addTP(-amount);
 }
 
 /************************************************************************
@@ -12315,14 +12323,54 @@ std::optional<CLuaBaseEntity> CLuaBaseEntity::getPet()
 
 uint32 CLuaBaseEntity::getPetID()
 {
-    auto* PBattle = static_cast<CBattleEntity*>(m_PBaseEntity);
-
-    if (PBattle->PPet)
+    if (m_PBaseEntity->objtype == TYPE_PET)
     {
-        return static_cast<CPetEntity*>(PBattle->PPet)->m_PetID;
+        return static_cast<CPetEntity*>(m_PBaseEntity)->m_PetID;
     }
 
     return 0;
+}
+
+/************************************************************************
+ *  Function: isAutomaton()
+ *  Purpose : Returns true if entity is an automaton
+ *  Example : local isAutomaton = pet:isAutomaton()
+ *  Notes   :
+ ************************************************************************/
+
+bool CLuaBaseEntity::isAutomaton()
+{
+    if (m_PBaseEntity->objtype == TYPE_PET)
+    {
+        uint32 petID = static_cast<CPetEntity*>(m_PBaseEntity)->m_PetID;
+        if (petID >= PETID_HARLEQUINFRAME and petID <= PETID_STORMWAKERFRAME)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/************************************************************************
+ *  Function: isAvatar()
+ *  Purpose : Returns true if entity is an avatar
+ *  Example : local isAvatar = pet:isAvatar()
+ *  Notes   :
+ ************************************************************************/
+
+bool CLuaBaseEntity::isAvatar()
+{
+    if (m_PBaseEntity->objtype == TYPE_PET)
+    {
+        uint32 petID = static_cast<CPetEntity*>(m_PBaseEntity)->m_PetID;
+        if ((petID >= PETID_CARBUNCLE && petID <= PETID_CAIT_SITH) || petID == PETID_SIREN)
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 /************************************************************************
@@ -14189,7 +14237,6 @@ void CLuaBaseEntity::setDropID(uint32 dropID)
     auto* PMob = static_cast<CMobEntity*>(m_PBaseEntity);
 
     PMob->m_DropID = dropID;
-    PMob->m_DropListModifications.clear();
 }
 
 /************************************************************************
@@ -14341,25 +14388,6 @@ int16 CLuaBaseEntity::getTHlevel()
 
     auto* PMob = static_cast<CMobEntity*>(m_PBaseEntity);
     return PMob->isDead() ? PMob->m_THLvl : PMob->PEnmityContainer->GetHighestTH();
-}
-
-/************************************************************************
- *  Function: addDropListModification()
- *  Purpose : Adds a modification to the drop list of this mob, to be applied just before loot is rolled.
- *  Example : mob:addDropListModification(4112, 1000) -- Set drop rate of Potion to 100%
- *  Notes   : Erased on death, once the modifications are applied.
- *          : Modifications are cleared if the drop list is changed.
- ************************************************************************/
-
-void CLuaBaseEntity::addDropListModification(uint16 id, uint16 newRate, sol::variadic_args va)
-{
-    XI_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_MOB);
-
-    auto* PMob = static_cast<CMobEntity*>(m_PBaseEntity);
-
-    uint8 dropType = va[0].get_type() == sol::type::number ? va[0].as<uint8>() : 0;
-
-    PMob->m_DropListModifications[id] = std::pair<uint16, uint8>(newRate, dropType);
 }
 
 /************************************************************************
@@ -15408,6 +15436,8 @@ void CLuaBaseEntity::Register()
     SOL_REGISTER("hasPet", CLuaBaseEntity::hasPet);
     SOL_REGISTER("getPet", CLuaBaseEntity::getPet);
     SOL_REGISTER("getPetID", CLuaBaseEntity::getPetID);
+    SOL_REGISTER("isAutomaton", CLuaBaseEntity::isAutomaton);
+    SOL_REGISTER("isAvatar", CLuaBaseEntity::isAvatar);
     SOL_REGISTER("getPetElement", CLuaBaseEntity::getPetElement);
     SOL_REGISTER("setPet", CLuaBaseEntity::setPet);
     SOL_REGISTER("getMaster", CLuaBaseEntity::getMaster);
@@ -15540,7 +15570,6 @@ void CLuaBaseEntity::Register()
     SOL_REGISTER("getDespoilDebuff", CLuaBaseEntity::getDespoilDebuff);
     SOL_REGISTER("itemStolen", CLuaBaseEntity::itemStolen);
     SOL_REGISTER("getTHlevel", CLuaBaseEntity::getTHlevel);
-    SOL_REGISTER("addDropListModification", CLuaBaseEntity::addDropListModification);
 
     SOL_REGISTER("getPlayerTriggerAreaInZone", CLuaBaseEntity::getPlayerTriggerAreaInZone);
     SOL_REGISTER("updateToEntireZone", CLuaBaseEntity::updateToEntireZone);
