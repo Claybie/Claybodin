@@ -40,6 +40,7 @@ global_objects=(
     mixins
     g_mixins
     applyMixins
+    mixinOptions
 
     set
     printf
@@ -191,7 +192,7 @@ global_objects=(
     ForceCrash
     BuildString
 
-    DYNAMIC_LOOKUP
+    GetFirstID
 )
 
 ignores=(
