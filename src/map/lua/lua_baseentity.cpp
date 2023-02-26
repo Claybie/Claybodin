@@ -2152,9 +2152,10 @@ bool CLuaBaseEntity::sendGuild(uint16 guildID, uint8 open, uint8 close, uint8 ho
 
 void CLuaBaseEntity::openSendBox()
 {
-    XI_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
-
-    charutils::OpenSendBox(static_cast<CCharEntity*>(m_PBaseEntity));
+    if (auto* PChar = dynamic_cast<CCharEntity*>(m_PBaseEntity))
+    {
+        charutils::OpenSendBox(PChar, 0x0D, 2);
+    }
 }
 
 /************************************************************************
@@ -5746,7 +5747,7 @@ uint8 CLuaBaseEntity::levelRestriction(sol::object const& level)
                         petutils::CalculateAutomatonStats(PChar, PPet);
                         break;
                     case PET_TYPE::LUOPAN:
-                        petutils::CalculateLoupanStats(PChar, PPet);
+                        petutils::CalculateLuopanStats(PChar, PPet);
                         break;
                     default:
                         petutils::DespawnPet(PChar);

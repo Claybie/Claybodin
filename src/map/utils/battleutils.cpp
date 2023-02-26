@@ -319,8 +319,7 @@ namespace battleutils
     {
         for (int32 SkillId = 0; SkillId < MAX_WEAPONSKILL_ID; ++SkillId)
         {
-            delete g_PWeaponSkillList[SkillId];
-            g_PWeaponSkillList[SkillId] = nullptr;
+            destroy(g_PWeaponSkillList[SkillId]);
         }
     }
 
@@ -331,8 +330,7 @@ namespace battleutils
     {
         for (auto& mobskill : g_PMobSkillList)
         {
-            delete mobskill;
-            mobskill = nullptr;
+            destroy(mobskill);
         }
     }
 
@@ -343,7 +341,7 @@ namespace battleutils
     {
         for (auto& petskill : g_PPetSkillList)
         {
-            delete petskill.second;
+            destroy(petskill.second);
         }
         g_PPetSkillList.clear();
     }
@@ -5768,43 +5766,57 @@ namespace battleutils
 
     WEATHER GetWeather(CBattleEntity* PEntity, bool ignoreScholar)
     {
+        if (PEntity == nullptr || zoneutils::GetZone(PEntity->getZone()) == nullptr)
+        {
+            return WEATHER_NONE;
+        }
+
         return GetWeather(PEntity, ignoreScholar, zoneutils::GetZone(PEntity->getZone())->GetWeather());
     }
 
     WEATHER GetWeather(CBattleEntity* PEntity, bool ignoreScholar, uint16 zoneWeather)
     {
+        if (PEntity == nullptr)
+        {
+            return WEATHER_NONE;
+        }
+
         WEATHER scholarSpell = WEATHER_NONE;
-        if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_FIRESTORM))
+
+        if (!ignoreScholar) // Do not need to check for status effects if we're ignoring scholar spells
         {
-            scholarSpell = WEATHER_HOT_SPELL;
-        }
-        if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_RAINSTORM))
-        {
-            scholarSpell = WEATHER_RAIN;
-        }
-        if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_SANDSTORM))
-        {
-            scholarSpell = WEATHER_DUST_STORM;
-        }
-        if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_WINDSTORM))
-        {
-            scholarSpell = WEATHER_WIND;
-        }
-        if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_HAILSTORM))
-        {
-            scholarSpell = WEATHER_SNOW;
-        }
-        if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_THUNDERSTORM))
-        {
-            scholarSpell = WEATHER_THUNDER;
-        }
-        if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_AURORASTORM))
-        {
-            scholarSpell = WEATHER_AURORAS;
-        }
-        if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_VOIDSTORM))
-        {
-            scholarSpell = WEATHER_GLOOM;
+            if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_FIRESTORM))
+            {
+                scholarSpell = WEATHER_HOT_SPELL;
+            }
+            if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_RAINSTORM))
+            {
+                scholarSpell = WEATHER_RAIN;
+            }
+            if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_SANDSTORM))
+            {
+                scholarSpell = WEATHER_DUST_STORM;
+            }
+            if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_WINDSTORM))
+            {
+                scholarSpell = WEATHER_WIND;
+            }
+            if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_HAILSTORM))
+            {
+                scholarSpell = WEATHER_SNOW;
+            }
+            if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_THUNDERSTORM))
+            {
+                scholarSpell = WEATHER_THUNDER;
+            }
+            if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_AURORASTORM))
+            {
+                scholarSpell = WEATHER_AURORAS;
+            }
+            if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_VOIDSTORM))
+            {
+                scholarSpell = WEATHER_GLOOM;
+            }
         }
 
         if (ignoreScholar || scholarSpell == WEATHER_NONE || zoneWeather == (scholarSpell + 1))
@@ -5925,6 +5937,19 @@ namespace battleutils
     {
         position_t& pos        = PMob->loc.p;
         position_t  nearEntity = nearPosition(pos, offset, (float)0);
+
+        // Make sure we can raycast to that position
+        // from the mob's "eyeline" to the ground where we want to draw players in to
+        if (PMob->loc.zone->lineOfSight)
+        {
+            auto entityHeight = 2.0f;
+            auto mobEyeline   = position_t{ pos.x, pos.y - entityHeight, pos.z, 0, 0 };
+            if (auto optHit = PMob->loc.zone->lineOfSight->Raycast(mobEyeline, nearEntity))
+            {
+                auto hit   = *optHit;
+                nearEntity = { hit.x, hit.y, hit.z, 0, 0 };
+            }
+        }
 
         // Snap nearEntity to a guaranteed valid position
         if (PMob->loc.zone->m_navMesh)
