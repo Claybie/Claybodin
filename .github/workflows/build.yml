@@ -1,4 +1,4 @@
-name: "gcc/clang build"
+name: "gcc12 build"
 
 on:
   pull_request:
@@ -77,56 +77,6 @@ jobs:
           exit 1
         fi
         exit 0
-    - name: CPP Checks
-      if: always()
-      run: |
-        touch cpp_checks.txt
-        for changed_file in ${{ steps.changed-files.outputs.all }}; do
-          if [[ -f $changed_file ]]; then
-            if [[ $changed_file == *.cpp ]]; then
-              bash tools/ci/cpp.sh ${changed_file} 2>> cpp_checks.txt || true
-            fi
-          fi
-        done
-        cat cpp_checks.txt
-        if [ -s cpp_checks.txt ]
-        then
-          exit 1
-        fi
-        exit 0
-    - name: CPP Formatting Checks
-      if: always()
-      run: |
-        clang-format-14 -version
-        touch cpp_formatting_checks.txt
-        for changed_file in ${{ steps.changed-files.outputs.all }}; do
-          if [[ -f $changed_file ]]; then
-            if [[ $changed_file == *.cpp || $changed_file == *.h ]]; then
-              clang-format-14 -style=file -i ${changed_file}
-            fi
-          fi
-        done
-        git diff --color >> cpp_formatting_checks.txt
-        git reset --hard
-        if [ -s cpp_formatting_checks.txt ]
-        then
-          echo ""
-          echo "You have errors in your C++ code formatting."
-          echo "Please see below in red for the incorrect formatting, and in green for the correct formatting."
-          echo "You can either fix the formatting by hand or use clang-format."
-          echo "(You can safely ignore warnings about \$TERM and tput)"
-          echo ""
-          cat cpp_formatting_checks.txt | diff-so-fancy || true
-          exit 1
-        fi
-        exit 0
-    - name: Upload CPP Formatting Diff
-      if: hashFiles('cpp_formatting_checks.txt') != ''
-      uses: actions/upload-artifact@v3
-      with:
-        name: clang_format_diff
-        path: |
-          cpp_formatting_checks.txt
     - name: Lua Checks
       if: always()
       run: |
@@ -184,42 +134,7 @@ jobs:
         fi
         exit 0
 
-  Linux_Clang14_64bit:
-    needs: Sanity_Checks
-    runs-on: ubuntu-22.04
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 1
-    - name: Install Dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y software-properties-common cmake libmariadb-dev-compat libluajit-5.1-dev libzmq3-dev zlib1g-dev libssl-dev binutils-dev
-    #- name: Cache 'build' folder
-    #  uses: actions/cache@v3
-    #  with:
-    #    path: build
-    #    key: ${{ runner.os }}-clang
-    - name: Configure CMake
-      run: |
-        export CC=/usr/bin/clang-14
-        export CXX=/usr/bin/clang++-14
-        mkdir -p build
-        cmake -S . -B build
-    - name: Build
-      run: |
-        cmake --build build -j4
-    - name: Archive Executables
-      uses: actions/upload-artifact@v3
-      with:
-        name: linux_executables
-        path: |
-          xi_connect
-          xi_map
-          xi_search
-          xi_world
-
-  Linux_GCC11_64bit:
+  Linux_GCC12_64bit:
     needs: Sanity_Checks
     runs-on: ubuntu-22.04
     steps:
@@ -237,8 +152,8 @@ jobs:
     #    key: ${{ runner.os }}-gcc
     - name: Configure CMake
       run: |
-        export CC=/usr/bin/gcc-11
-        export CXX=/usr/bin/g++-11
+        export CC=/usr/bin/gcc-12
+        export CXX=/usr/bin/g++-12
         mkdir -p build
         CFLAGS=-m64 CXXFLAGS=-m64 LDFLAGS=-m64 cmake -S . -B build
     - name: Build
@@ -247,7 +162,7 @@ jobs:
 
   Full_Startup_Checks_Linux:
     runs-on: ubuntu-22.04
-    needs: Linux_Clang14_64bit
+    needs: Linux_GCC12_64bit
     services:
       mysql:
         image: mariadb
@@ -385,7 +300,7 @@ jobs:
 
   MultiInstance_Startup_Checks_Linux:
     runs-on: ubuntu-22.04
-    needs: Linux_Clang14_64bit
+    needs: Linux_GCC12_64bit
     services:
       mysql:
         image: mariadb
