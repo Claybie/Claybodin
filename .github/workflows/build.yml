@@ -300,7 +300,7 @@ jobs:
 
   MultiInstance_Startup_Checks_Linux:
     runs-on: ubuntu-22.04
-    needs: Linux_Clang14_64bit
+    needs: Linux_GCC12_64bit
     services:
       mysql:
         image: mariadb
