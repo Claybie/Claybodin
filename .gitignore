@@ -136,6 +136,7 @@ UpgradeLog*.XML
 /xi_map
 /xi_search
 /xi_world
+/core
 
 # Generated files, mostly autotools-related
 .deps
