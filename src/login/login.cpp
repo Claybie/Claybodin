@@ -106,7 +106,7 @@ int32 do_init(int32 argc, char** argv)
     if (getrlimit(RLIMIT_NOFILE, &limits) == 0)
     {
         // Increase open file limit, which includes sockets, to MAX_FD. This only effects the current process and child processes
-        limits.rlim_cur = MAX_FD;
+        limits.rlim_cur = 4096;
         if (setrlimit(RLIMIT_NOFILE, &limits) == -1)
         {
             ShowError("Failed to increase rlim_cur to %d", MAX_FD);
