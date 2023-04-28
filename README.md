@@ -9,17 +9,17 @@
 
 </p>
 
-## A Final Fantasy XI Private Server Running On LandSandBoat
+## A (tiny) Final Fantasy XI Private Server
 
-This repo hosts the code for the Claybodin private server. It is a fork of the LandSandBoat project base repository, with some minor customizations, including:
+This repo hosts the code for my  private server I call Claybodin, which I keep online mostly for myself, but is open to the public. It is a fork of the LandSandBoat project base repository. There are small changes for building specifically on Gentoo Linux, as well as the following gameplay changes:
 
 <ul>
-    <li>Many Ciphers that are rewarded from Login Campaign points on retail have been changed to rewards from quests or missions that pertain to those characters. Roadmap is for all Trusts to be acquired via storyline method, rather than with currency, FoV, RoE etc.  Claybodin does not run a Login Campaign. </li>
+    <li>Many Ciphers that are rewarded from Login Campaign points on retail have been changed to rewards from quests or missions that pertain to those characters. Roadmap is for all Trusts to be acquired via storyline method, rather than with currency, FoV, RoE etc. Claybodin does not run a Login Campaign. </li>
     <li>Weapon/Magic skillups have been removed from the game; characters are always at max skill for their level. I consider the system archaic and out-of-place for the current era.
     </li>
 </ul>
 
-The goal of the project is to maintain and add gameplay deviations from retail that I consider improvements, while staying up-to-date with upstream.
+There is little point in building the server from my repo unless you really want my gameplay changes and don't want to bother implementing them for yourself, and/or you are building on Gentoo like I am, which the developers do not officially support.
 
 Visit the LandSandBoat [project page](https://github.com/LandSandBoat/server/) for more info. LandSandBoat is licensed under [GNU GPL v3](https://github.com/LandSandBoat/server/blob/base/LICENSE).
 
@@ -37,9 +37,9 @@ I expect to keep the server online 24/7 with very little downtime. That said, I 
 
 ## Server Hardware
 
-Thinkpad W541 running Gentoo Linux
+Thinkpad W541
 <ul>
     <li>Intel i7-4710MQ</li>
     <li>16 GB RAM</li>
-    <li>250Mbps Fibre</li>
+    <li>500Mbps Fibre</li>
 </ul>
