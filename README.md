@@ -64,14 +64,14 @@ Keep in mind any reference to the folder ```server``` should instead be ```Clayb
 
 ## Just want to play?
 
--Get a free trial key from the [Square-Enix Store](https://store.na.square-enix-games.com/en_US/product/442968/final-fantasy-xi-free-trial-pc-download)
-	-Follow the instructions on the store page for setting up a Square-Enix account. This is only necessary for logging into the retail servers with your free trial to download the full game, which only needs to be done once. 
+-	Get a free trial key from the [Square-Enix Store](https://store.na.square-enix-games.com/en_US/product/442968/final-fantasy-xi-free-trial-pc-download)
+	-	Follow the instructions on the store page for setting up a Square-Enix account. This is only necessary for logging into the retail servers with your free trial to download the full game, which only needs to be done once. 
 
--Install the client with [Lutris](https://lutris.net/games/final-fantasy-xi-online/) on Linux. Windows users can download it [here](http://www.playonline.com/ff11us/download/media/install_win.html).
+-	Install the client with [Lutris](https://lutris.net/games/final-fantasy-xi-online/) on Linux. Windows users can download it [here](http://www.playonline.com/ff11us/download/media/install_win.html).
 
--Connect to the server address <b>claybodin.mywire.org</b> using [Ashita](https://ashitaxi.com/). 
+-	Connect to the server address <b>claybodin.mywire.org</b> using [Ashita](https://ashitaxi.com/). 
 
--Improve the game's visuals with [XI-View](https://github.com/Caradog/XI-View) and [AshenbubsHD Texture Pack](https://www.nexusmods.com/finalfantasy11/mods/1).
+-	Improve the game's visuals with [XI-View](https://github.com/Caradog/XI-View) and [AshenbubsHD Texture Pack](https://www.nexusmods.com/finalfantasy11/mods/1).
 
 Join the [FFXiPrivateServers](https://discord.gg/THnWnC9fjr) discord server for information on private servers, LandSandBoat development, client setup for Windows & Linux and more!
 
