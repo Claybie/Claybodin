@@ -9,21 +9,58 @@
 
 </p>
 
-## A (tiny) Final Fantasy XI Private Server
+# A (tiny) Final Fantasy XI Private Server, running on Gentoo!
 
-This repo hosts the code for my  private server I call Claybodin, which I keep online mostly for myself, but is open to the public. It is a fork of the LandSandBoat project base repository. There are small changes for building specifically on Gentoo Linux, as well as the following gameplay changes:
+Claybodin is a fork of LandSandBoat and is used to run my own private server, which I keep online mostly for myself, but is open to the public. It serves two purposes:
 
-<ul>
-    <li>Many Ciphers that are rewarded from Login Campaign points on retail have been changed to rewards from quests or missions that pertain to those characters. Roadmap is for all Trusts to be acquired via storyline method, rather than with currency, FoV, RoE etc. Claybodin does not run a Login Campaign. </li>
-    <li>Weapon/Magic skillups have been removed from the game; characters are always at max skill for their level. I consider the system archaic and out-of-place for the current era.
-    </li>
-</ul>
+-   Structured to build on and tested for running on Gentoo Linux specifically (LandSandBoat has official support for Ubuntu and Arch only). You will not be able to build on Windows from this repo.
 
-There is little point in building the server from my repo unless you really want my gameplay changes and don't want to bother implementing them for yourself, and/or you are building on Gentoo like I am, which the developers do not officially support.
+-   Host a gameplay envorinment with specific changes from retail, including:
+    -   Many Ciphers that are normally rewarded from Login Campaign points have been changed to rewards from quests or missions that pertain to those characters. The roadmap is for all Trusts to be acquired via storyline method, rather than with currency, FoV, RoE etc. Claybodin does not run a Login Campaign. 
+    -   Weapon/Magic skillups have been removed; characters are always at max skill for their level. This QoL change is long overdue considering the state of the game in modern times otherwise.
 
 Visit the LandSandBoat [project page](https://github.com/LandSandBoat/server/) for more info. LandSandBoat is licensed under [GNU GPL v3](https://github.com/LandSandBoat/server/blob/base/LICENSE).
 
-## How To Play
+## Gentoo Install Guide
+
+### The packages required and initial installation/setup differ from the LSB Quick Start Guide as it was made with Ubuntu in mind.
+
+Ensure your system is up to date:
+```
+root # emerge --sync && emerge -avuUD @world
+```
+Emerge the following packages and their dependencies, then clone the repo in your folder of choice and copy the settings files where they can be sourced:
+```
+root # emerge -a dev-db/mariadb dev-lang/luajit dev-vcs/git net-libs/zeromq
+user $ cd ~/ && mkdir git && cd ~/git 
+user $ git clone --recursive https://github.com/Claybie/Claybodin.git
+user $ cp Claybodin/settings/default/* Claybodin/settings
+```
+MariaDB will need to be configured and the database initialized before the service can be started. If you have issues, or are using systemd instead of OpenRC, refer to the [wiki](https://wiki.gentoo.org/wiki/MariaDB).
+```
+root # emerge --config dev-db/mariadb
+root # rc-update add mysql default
+root # rc-service mysql start
+```
+
+In order to use dbtool for managing your database, additional packages are required, one of which is not in the gentoo repo. Upstream uses pip to install these packages, but that should not be done on Gentoo. Thankfully there is an overlay we can enable to get what we need (ensure you have already installed and configured [eselect-repository](https://wiki.gentoo.org/wiki/Eselect/Repository)):
+```
+root # eselect repository enable HomeAssistantRepository
+root # emaint sync -r HomeAssistantRepository
+```
+Now we can emerge the packages we need to use dbtool:
+```
+root # emerge -a dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex 
+```
+You may now otherwise follow the [Quick Start Guide](https://github.com/LandSandBoat/server/wiki/Quick-Start-Guide), continuing to set up your database with the instructions under: 
+> Linux (Debian/Ubuntu 22.04)
+
+Beginning with subsection:
+> Run the following script to improve database security:
+
+Keep in mind any reference to the folder ```server``` should instead be ```Claybodin```.
+
+## Just want to play?
 
 Connect to the server address <b>claybodin.mywire.org</b> using [Ashita](https://ashitaxi.com/). 
 
