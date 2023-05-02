@@ -9,7 +9,7 @@
 
 </p>
 
-# A (tiny) Final Fantasy XI Private Server, running on Gentoo!
+## A (tiny) Final Fantasy XI Private Server, running on Gentoo!
 
 Claybodin is a fork of LandSandBoat and is used to run my own private server, which I keep online mostly for myself, but is open to the public. It serves two purposes:
 
@@ -23,15 +23,18 @@ Visit the LandSandBoat [project page](https://github.com/LandSandBoat/server/) f
 
 ## Gentoo Install Guide
 
-### The packages required and initial installation/setup differ from the LSB Quick Start Guide as it was made with Ubuntu in mind.
+*The packages required and initial installation/setup differ from the LSB Quick Start Guide as it was made with Ubuntu in mind.*
 
 Ensure your system is up to date:
 ```
 root # emerge --sync && emerge -avuUD @world
 ```
-Emerge the following packages and their dependencies, then clone the repo in your folder of choice and copy the settings files where they can be sourced:
+Emerge the following packages and their dependencies: 
 ```
 root # emerge -a dev-db/mariadb dev-lang/luajit dev-vcs/git net-libs/zeromq
+```
+Clone the repo in your folder of choice, then copy the settings files where they can be sourced:
+```
 user $ cd ~/ && mkdir git && cd ~/git 
 user $ git clone --recursive https://github.com/Claybie/Claybodin.git
 user $ cp Claybodin/settings/default/* Claybodin/settings
@@ -42,7 +45,6 @@ root # emerge --config dev-db/mariadb
 root # rc-update add mysql default
 root # rc-service mysql start
 ```
-
 In order to use dbtool for managing your database, additional packages are required, one of which is not in the gentoo repo. Upstream uses pip to install these packages, but that should not be done on Gentoo. Thankfully there is an overlay we can enable to get what we need (ensure you have already installed and configured [eselect-repository](https://wiki.gentoo.org/wiki/Eselect/Repository)):
 ```
 root # eselect repository enable HomeAssistantRepository
