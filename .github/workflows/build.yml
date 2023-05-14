@@ -24,9 +24,9 @@ jobs:
         fetch-depth: 0
     - name: Install Dependencies
       run: |
-        sudo eselect profile set default/linux/amd64/17.1/systemd
-        sudo emerge --rsync
-        sudo emerge --quiet-build dev-db/mariadb dev-lang/luajit dev-vcs/git net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex
+        emerge --rsync
+        eselect profile set default/linux/amd64/17.1/systemd
+        emerge --quiet-build dev-db/mariadb dev-lang/luajit dev-vcs/git net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex
     - id: changed-files
       name: Get Changed Files
       uses: Ana06/get-changed-files@v2.2.0
