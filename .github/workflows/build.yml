@@ -26,6 +26,7 @@ jobs:
       run: |
         emerge --sync
         eselect profile set default/linux/amd64/17.1/systemd
+        emerge app-eselect/eselect-repository
         eselect repository enable HomeAssistantRepository
         emaint sync -r HomeAssistantRepository
         emerge --quiet-build dev-db/mariadb dev-lang/luajit dev-vcs/git net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex
