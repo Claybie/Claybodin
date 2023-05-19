@@ -1,4 +1,4 @@
-name: "gcc build"
+name: "gcc amd64 build"
 
 on:
   pull_request:
@@ -159,6 +159,7 @@ jobs:
     - name: Configure and run MySQL
       run: |
         root | emerge --config dev-db/mariadb
+        /bin/sleep 5
         rc-service mysql start
     - name: Create SQL database
       run: |
