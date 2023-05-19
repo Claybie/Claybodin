@@ -1,4 +1,4 @@
-name: "test build"
+name: "Gentoo build"
 
 on:
   pull_request:
@@ -17,7 +17,7 @@ concurrency:
 jobs:
   Sanity_Checks:
     runs-on: ubuntu-22.04
-    container: gentoo/stage3:systemd
+    container: gentoo/stage3:amd64-openrc
     steps:
     - uses: actions/checkout@v3
       with:
@@ -26,9 +26,17 @@ jobs:
       run: |
         emerge --sync
         emerge app-eselect/eselect-repository dev-vcs/git
-        eselect repository enable HomeAssistantRepository
-        emaint sync -r HomeAssistantRepository
-        emerge --quiet-build dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex
+        eselect repository add claytabase git https://github.com/claybie/claytabase.git
+        eselect repository enable guru
+        emaint sync -r claytabase
+        emaint sync -r guru
+        touch /etc/portage/package.accept_keywords/mariadb-connector-c
+        touch /etc/portage/package.accept_keywords/mariadb-connector-python
+        touch /etc/portage/package.accept_keywords/diff-so-fancy
+        echo '=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
+        echo '=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
+        echo '=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
+        emerge --quiet-build dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy 
     - id: changed-files
       name: Get Changed Files
       uses: Ana06/get-changed-files@v2.2.0
@@ -127,17 +135,18 @@ jobs:
         fi
         exit 0
 
-  Linux_GCC12_64bit:
+  GCC12_64bit:
     needs: Sanity_Checks
     runs-on: ubuntu-22.04
+    container: gentoo/stage3:amd64-openrc
     steps:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 1
     - name: Install Dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y software-properties-common cmake libmariadb-dev-compat libluajit-5.1-dev libzmq3-dev zlib1g-dev libssl-dev binutils-dev
+        emerge --sync
+        emerge --quiet-build dev-db/mariadb dev-lang/luajit net-libs/zeromq
     #- name: Cache 'build' folder
     #  uses: actions/cache@v3
     #  with:
@@ -162,9 +171,10 @@ jobs:
           xi_search
           xi_world
 
-  Full_Startup_Checks_Linux:
+  Full_Startup_Checks:
     runs-on: ubuntu-22.04
-    needs: Linux_GCC12_64bit
+    container: gentoo/stage3:amd64-openrc
+    needs: GCC12_64bit
     services:
       mysql:
         image: mariadb
@@ -184,8 +194,8 @@ jobs:
         path: .
     - name: Install Dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y software-properties-common cmake mariadb-server mariadb-client libmariadb-dev-compat libluajit-5.1-dev libzmq3-dev zlib1g-dev libssl-dev luarocks binutils-dev
+        emerge --sync
+        emerge --quiet-build dev-db/mariadb dev-lang/luajit net-libs/zeromq
     - name: Verify MySQL connection from container
       run: |
         mysql -h 127.0.0.1 -uroot -proot -e "SHOW DATABASES"
@@ -291,9 +301,9 @@ jobs:
             exit -1
         fi
 
-  MultiInstance_Startup_Checks_Linux:
+  MultiInstance_Startup_Checks:
     runs-on: ubuntu-22.04
-    needs: Linux_GCC12_64bit
+    needs: GCC12_64bit
     services:
       mysql:
         image: mariadb
@@ -313,8 +323,8 @@ jobs:
         path: .
     - name: Install Dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y software-properties-common cmake mariadb-server mariadb-client libmariadb-dev-compat libluajit-5.1-dev libzmq3-dev zlib1g-dev libssl-dev luarocks binutils-dev
+        emerge --sync
+        emerge --quiet-build dev-db/mariadb dev-lang/luajit net-libs/zeromq
     - name: Verify MySQL connection from container
       run: |
         mysql -h 127.0.0.1 -uroot -proot -e "SHOW DATABASES"
