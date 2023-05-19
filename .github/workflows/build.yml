@@ -29,7 +29,7 @@ jobs:
         echo '[gentoo]
         sync-type = webrsync' >> /etc/portage/repos.conf/gentoo.conf
         emerge --sync
-        emerge app-eselect/eselect-repository dev-vcs/git
+        emerge --quiet-build app-eselect/eselect-repository dev-vcs/git
         eselect repository add claytabase git https://github.com/claybie/claytabase.git
         eselect repository enable guru
         emaint sync -r claytabase
