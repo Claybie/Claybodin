@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  Full_Build_and_Test:
+  Initialize_MySQL:
     runs-on: ubuntu-22.04
     container: gentoo/stage3:amd64-openrc
     steps:
@@ -33,10 +33,7 @@ jobs:
     - name: Configure and run MySQL
       run: |
         root | emerge --config dev-db/mariadb
-        /bin/sleep 5
-        rc-service mysql stop
-        /bin/sleep 5
-        rc-service mysql start
+        rc-service mysql restart
     - name: Create SQL database
       run: |
         mysql -e "CREATE DATABASE xidb;USE xidb;"
