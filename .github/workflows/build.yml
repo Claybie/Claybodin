@@ -2,13 +2,13 @@ name: "gcc amd64 build"
 
 on:
   pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-  push:
-    branches:
-      - base
+#    types:
+#      - opened
+#      - synchronize
+#      - reopened
+#  push:
+#    branches:
+#      - base
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
