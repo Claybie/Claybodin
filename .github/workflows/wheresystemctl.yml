@@ -1,0 +1,27 @@
+name: "db initd"
+
+on:
+  pull_request:
+   types:
+      - opened
+      - synchronize
+      - reopened
+  push:
+    branches:
+      - base
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+  
+jobs:
+  database_init:
+    runs-on: ubuntu-22.04
+    container: gentoo/stage3:amd64-systemd
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Install Dependencies
+      run: |
+        echo $(which systemctl)
