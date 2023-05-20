@@ -1,11 +1,11 @@
-name: "gcc amd64 build"
+name: "gcc amd64"
 
 on:
   pull_request:
-#    types:
-#      - opened
-#      - synchronize
-#      - reopened
+   types:
+      - opened
+      - synchronize
+      - reopened
 #  push:
 #    branches:
 #      - base
@@ -15,9 +15,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  Full_Build_and_Test:
+  gcc12_AMD64_Build:
     runs-on: ubuntu-22.04
-    container: gentoo/stage3:amd64-openrc
+    container: gentoo/stage3:amd64-systemd
     steps:
     - uses: actions/checkout@v3
       with:
@@ -156,24 +156,16 @@ jobs:
           xi_map
           xi_search
           xi_world
-    - name: Configure and run MySQL
+    - name: Verify MySQL connection from container
       run: |
-        root | emerge --config dev-db/mariadb
-        /bin/sleep 5
-        rc-service mysql start
-    - name: Create SQL database
-      run: |
-        mysql -e "CREATE DATABASE xidb;USE xidb;"
-    - name: Test MySQL connection
-      run: |
-        mysql -h 127.0.0.1 -e "SHOW DATABASES"
+        mysql -h 127.0.0.1 -uroot -proot -e "SHOW DATABASES"
     - name: Import SQL files
       run: |
         for f in sql/*.sql; do
           echo -e "Importing $f into the database..."
-          mysql xidb -h 127.0.0.1 < $f
+          mysql xidb -h 127.0.0.1 -uroot -proot < $f
         done
-        mysql xidb -h 127.0.0.1 -e "SHOW tables"
+        mysql xidb -h 127.0.0.1 -uroot -proot -e "SHOW tables"
     - name: Copy settings
       run: |
         cp settings/default/* settings/
@@ -199,15 +191,18 @@ jobs:
           chmod +x xi_search
           chmod +x xi_world
           ls -l
+
           printf "\nStart server processes\n"
           screen -d -m -S xi_connect ./xi_connect --log login-server.log
           screen -d -m -S xi_search ./xi_search --log search-server.log
           screen -d -m -S xi_map ./xi_map --log map-server.log
           screen -d -m -S xi_world ./xi_world --log world-server.log
+
           printf "\nWaiting 5m for servers to fully start up\n"
           sleep 300s
+
           printf "\nPopulating database\n"
-          mysql xidb -h 127.0.0.1 << EOF
+          mysql xidb -h 127.0.0.1 -uroot -proot << EOF
           -- Clean out anything already there (just in case)
           DELETE FROM accounts;
           DELETE FROM chars;
@@ -238,6 +233,7 @@ jobs:
           VALUES(1, 'GodMode', 1);
           SELECT * FROM char_vars;
           EOF
+
           printf "\nRunning HeadlessXI for 60 seconds\n"
           python3 << EOF
           import time
@@ -248,6 +244,7 @@ jobs:
           time.sleep(30)
           hxi_client.logout()
           EOF
+
           killall screen
     - name: Check for errors and warnings
       if: ${{ success() || failure() }}
@@ -256,27 +253,29 @@ jobs:
         cat map-server*.log
         cat search-server*.log
         cat world-server*.log
+
         if grep -qi "warning\|error\|crash" login-server*.log; then
             exit -1
         fi
+
         if grep -qi "warning\|error\|crash" map-server*.log; then
             exit -1
         fi
+
         if grep -qi "warning\|error\|crash" search-server*.log; then
             exit -1
         fi
+
         if grep -qi "warning\|error\|crash" world-server*.log; then
             exit -1
         fi
     - name: Assign odd zones a different port
       run: |
-        mysql xidb -h 127.0.0.1 -e "UPDATE xidb.zone_settings SET zoneport = 54231 WHERE zoneid % 2 = 0;"
-    - name: Copy settings
-      run: |
-        cp settings/default/* settings/
+        mysql xidb -h 127.0.0.1 -uroot -proot -e "UPDATE xidb.zone_settings SET zoneport = 54231 WHERE zoneid % 2 = 0;"
     - name: Startup checks
       run: |
         ls -l
+
         printf "\nStart server processes\n"
         screen -d -m -S xi_connect ./xi_connect --log login-server.log
         screen -d -m -S xi_search ./xi_search --log search-server.log
@@ -293,18 +292,23 @@ jobs:
         cat map-server-0*.log
         cat map-server-1*.log
         cat world-server*.log
+
         if grep -qi "warning\|error\|crash" login-server*.log; then
             exit -1
         fi
+
         if grep -qi "warning\|error\|crash" search-server*.log; then
             exit -1
         fi
+
         if grep -qi "warning\|error\|crash" map-server-0*.log; then
             exit -1
         fi
+
         if grep -qi "warning\|error\|crash" map-server-1*.log; then
           exit -1
         fi
+
         if grep -qi "warning\|error\|crash" world-server*.log; then
           exit -1
         fi
