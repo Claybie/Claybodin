@@ -18,15 +18,6 @@ jobs:
   Initialize_MySQL:
     runs-on: ubuntu-22.04
     container: gentoo/stage3:amd64-openrc
-    services:
-      mysql:
-        image: mariadb
-        env:
-          MYSQL_DATABASE: xidb
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
     steps:
     - uses: actions/checkout@v3
       with:
