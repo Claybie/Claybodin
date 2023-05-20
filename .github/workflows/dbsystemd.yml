@@ -6,9 +6,9 @@ on:
       - opened
       - synchronize
       - reopened
-#  push:
-#    branches:
-#      - base
+  push:
+    branches:
+      - base
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
