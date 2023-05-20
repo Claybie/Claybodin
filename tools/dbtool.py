@@ -64,7 +64,7 @@ except Exception as e:
     print("ERROR: Exception occured while importing external dependencies:")
     print(e)
     print(
-        "Ensure you've run/re-run the command you use to install python dependencies (ex: pip install --upgrade -r requirements.txt)"
+        "Ensure you have emerged the packages listed in requirements.txt)"
     )
     preflight_exit()
 

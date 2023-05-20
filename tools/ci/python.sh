@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Requires pylint
-# pip install pylint
+# emerge -a dev-python/pylint
 
 target=${1:-src}
 

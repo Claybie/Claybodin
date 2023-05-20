@@ -1,4 +1,4 @@
-# py -m pip install requests
+# emerge -a dev-python/requests
 #
 # Usage:
 # .\tools\generate_changelog.py <days to generate, or "ci"> <repo owner name/repo name> <optional changelog title>

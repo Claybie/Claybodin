@@ -6,7 +6,7 @@
 # python3 announce.py "Here is a message from python!"
 #
 # Requirements
-# pip3 install zmq pyzmq
+# emerge -a net-libs/zeromq dev-python/pyzmq
 #
 #############################
 

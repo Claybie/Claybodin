@@ -1,4 +1,4 @@
-name: "emerge"
+name: "gcc 12"
 
 on:
   pull_request:

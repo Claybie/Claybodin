@@ -42,15 +42,11 @@ Sends `<your message>` to every character, in every zone, on every map process.
 Setup
 ========================
 
-## Installing Python
-`python3 --version` or `py -3 --version`
-
-**This requires Python 3 and pip.**  
-**Website:** https://www.python.org/downloads/  
-Download the latest version from the website or check your package manager.
-
 ## Installing Dependencies
-`pip install -r requirements.txt`
+`emerge -a app-eselect/eselect-repository dev-vcs/git`
+`eselect repository add claytabase git https://github.com/claybie/claytabase.git`
+`emaint sync -r claytabase`
+`emerge -a dev-python/mariadb dev-python/GitPython dev-python/pyyaml dev-python/colorama dev-python/pyzmq dev-python/pylint dev-python/black`
 
 **MariaDB** - MariaDB is required to interact with the database.  
 **GitPython** - GitPython is required to compare database versions.  
@@ -61,5 +57,6 @@ Download the latest version from the website or check your package manager.
 **Black** - Black is a Python code formatter.  
 
 ## Other
+## TODO: Adapt the below for Gentoo.
 `./install-systemd-service.sh` - Installs a systemd service for running the servers on Linux.  
 `./run_clang_format.sh` - Formats C++ code. Run from repo root.  

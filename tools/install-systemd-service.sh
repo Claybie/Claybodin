@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO: Allow service to work on Gentoo systemd, adapt for OpenRC.
 
 # Check if exists
 if [ -e /etc/systemd/system/xi.service ]
