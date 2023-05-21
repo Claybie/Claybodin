@@ -2934,9 +2934,6 @@ void SmallPacket0x04D(map_session_data_t* const PSession, CCharEntity* const PCh
 
                 CItem* PItem = PChar->UContainer->GetItem(slotID);
 
-                // ShowInfo("FreeSlots %u", PChar->getStorage(LOC_INVENTORY)->GetFreeSlotsCount());
-                // ShowInfo("ItemId %u", PItem->getID());
-
                 if (!PItem->isType(ITEM_CURRENCY) && PChar->getStorage(LOC_INVENTORY)->GetFreeSlotsCount() == 0)
                 {
                     PChar->pushPacket(new CDeliveryBoxPacket(action, boxtype, PItem, slotID, PChar->UContainer->GetItemsCount(), 0xB9));
@@ -3404,6 +3401,7 @@ void SmallPacket0x050(map_session_data_t* const PSession, CCharEntity* const PCh
     charutils::SaveCharLook(PChar);
     luautils::CheckForGearSet(PChar); // check for gear set on gear change
     PChar->UpdateHealth();
+    PChar->retriggerLatentsAfterPacketParsing = true; // retrigger all latents after all equip packets are parsed
 }
 
 /************************************************************************
