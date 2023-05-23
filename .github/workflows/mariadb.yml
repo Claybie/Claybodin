@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   Sanity_Checks:
-    runs-on: ubuntu-23.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
       with:
