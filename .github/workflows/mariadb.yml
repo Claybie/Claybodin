@@ -186,7 +186,7 @@ jobs:
 
   Linux_GCC12_64bit:
     needs: Sanity_Checks
-    runs-on: ubuntu-23.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
       with:
@@ -220,7 +220,7 @@ jobs:
           xi_world
 
   Full_Startup_Checks_Linux:
-    runs-on: ubuntu-23.04
+    runs-on: ubuntu-latest
     needs: Linux_GCC12_64bit
     services:
       mysql:
@@ -358,7 +358,7 @@ jobs:
         fi
 
   MultiInstance_Startup_Checks_Linux:
-    runs-on: ubuntu-23.04
+    runs-on: ubuntu-latest
     needs: Linux_GCC12_64bit
     services:
       mysql:
