@@ -1,4 +1,4 @@
-name: "gcc 12"
+name: "gcc 12 "
 
 on:
   pull_request:
