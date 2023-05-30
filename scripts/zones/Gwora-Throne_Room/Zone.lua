@@ -1,8 +1,7 @@
 -----------------------------------
--- Zone: Balgas_Dais (146)
+-- Zone: Gwora-Throne_Room (299)
 -----------------------------------
-local ID = require('scripts/zones/Balgas_Dais/IDs')
-require('scripts/globals/conquest')
+local ID = require('scripts/zones/Gwora-Throne_Room/IDs')
 -----------------------------------
 local zoneObject = {}
 
@@ -17,14 +16,10 @@ zoneObject.onZoneIn = function(player, prevZone)
         player:getYPos() == 0 and
         player:getZPos() == 0
     then
-        player:setPos(317.842, -126.158, 380.143, 127)
+        player:setPos(0, 0, 0, 128)
     end
 
     return cs
-end
-
-zoneObject.onConquestUpdate = function(zone, updatetype, influence, owner, ranking, isConquestAlliance)
-    xi.conq.onConquestUpdate(zone, updatetype, influence, owner, ranking, isConquestAlliance)
 end
 
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
