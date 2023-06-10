@@ -1,4 +1,5 @@
 <p align="center">
+    <img src="res/claybodin_logo.png">
     <h1 align="center">Claybodin</h1>
 </p>
 
