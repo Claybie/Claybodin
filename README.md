@@ -11,8 +11,6 @@
 
 </p>
 
-## A (tiny) Final Fantasy XI Private Server!
-
 Claybodin is a fork of LandSandBoat and is used to run my own private server, which I keep online mostly for myself, but is open to the public. It serves two purposes:
 
 -   Structured to build on and tested for running on Gentoo Linux specifically (LandSandBoat has official support for Ubuntu and Arch only). While it may build on other Linux distros, you will not be able to build on Windows from this repo. Currently, gcc is the recommended compiler as building on clang 15 or higher will fail.
@@ -21,15 +19,15 @@ Claybodin is a fork of LandSandBoat and is used to run my own private server, wh
     -   Many Ciphers that are normally rewarded from Login Campaign points have been changed to rewards from quests or missions that pertain to those characters. The roadmap is for all Trusts to be acquired via storyline method, rather than with currency, FoV, RoE etc. Claybodin does not run a Login Campaign. 
     -   Weapon/Magic skillups have been removed; characters are always at max skill for their level. This QoL change is long overdue considering the state of the game in modern times.
 
-Visit the LandSandBoat [project page](https://github.com/LandSandBoat/server/) for more info. LandSandBoat is licensed under [GNU GPL v3](https://github.com/LandSandBoat/server/blob/base/LICENSE).
+Visit the LandSandBoat [project page](https://github.com/LandSandBoat/server/) for more info. Claybodin is licensed under [GNU GPL v3](https://github.com/LandSandBoat/server/blob/base/LICENSE).
 
 ## Gentoo Install Guide
 
-*The packages required and initial installation/setup differ from the LSB Quick Start Guide as it was made with Ubuntu in mind.*
+*The below is for setting up your own server environment on Gentoo. If you just want to play, skip this section.*
 
 Ensure your system is up to date:
 ```
-root # emerge --sync && emerge -avuUD @world
+root # emerge --sync && emerge -avuDU @world
 ```
 Emerge the following packages and their dependencies: 
 ```
