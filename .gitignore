@@ -2,6 +2,10 @@
 [Bb]in/
 [Oo]bj/
 
+# GitHub files claybodin does not use.
+.github/pull_request_template.md
+.github/workflows/build.yml
+
 # mstest test results
 TestResults
 

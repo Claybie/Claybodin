@@ -10674,6 +10674,26 @@ bool CLuaBaseEntity::isDead()
 }
 
 /************************************************************************
+ *  Function: hasRaiseTractorMenu()
+ *  Purpose : Returns true if player has Raise or Tractor menu. Used to block casting on players with menu.
+ *  Example : if target:hasRaiseTractorMenu() then
+ ************************************************************************/
+bool CLuaBaseEntity::hasRaiseTractorMenu()
+{
+    if (m_PBaseEntity->objtype == TYPE_PC)
+    {
+        auto* PChar = dynamic_cast<CCharEntity*>(m_PBaseEntity);
+
+        if (PChar->m_hasTractor == 0 && PChar->m_hasRaise == 0)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/************************************************************************
  *  Function: sendRaise()
  *  Purpose : Updates the m_hasRaise private member with the Raise Level
  *  Example : target:sendRaise(1) -- 2, 3 or 4 for R2, R3, Arise
@@ -13931,6 +13951,27 @@ void CLuaBaseEntity::setPet(sol::object const& petObj)
     return;
 }
 
+// Returns the minimum level of the pet, such as level 23 for Courier Carrie or 0 if non applicable.
+uint8 CLuaBaseEntity::getMinimumPetLevel()
+{
+    CPetEntity* PPet = dynamic_cast<CPetEntity*>(m_PBaseEntity);
+
+    if (PPet)
+    {
+        Pet_t* petInfo = petutils::GetPetInfo(PPet->m_PetID);
+        if (petInfo)
+        {
+            return petInfo->minLevel;
+        }
+    }
+    else
+    {
+        ShowWarning("Non-CPetEntity called this function");
+    }
+
+    return 0;
+}
+
 /************************************************************************
  *  Function: getMaster()
  *  Purpose : Returns the Entity object for a pet's master
@@ -17045,6 +17086,7 @@ void CLuaBaseEntity::Register()
     // Battle Utilities
     SOL_REGISTER("isAlive", CLuaBaseEntity::isAlive);
     SOL_REGISTER("isDead", CLuaBaseEntity::isDead);
+    SOL_REGISTER("hasRaiseTractorMenu", CLuaBaseEntity::hasRaiseTractorMenu);
 
     SOL_REGISTER("sendRaise", CLuaBaseEntity::sendRaise);
     SOL_REGISTER("sendReraise", CLuaBaseEntity::sendReraise);
@@ -17206,6 +17248,7 @@ void CLuaBaseEntity::Register()
     SOL_REGISTER("isAvatar", CLuaBaseEntity::isAvatar);
     SOL_REGISTER("getPetElement", CLuaBaseEntity::getPetElement);
     SOL_REGISTER("setPet", CLuaBaseEntity::setPet);
+    SOL_REGISTER("getMinimumPetLevel", CLuaBaseEntity::getMinimumPetLevel);
     SOL_REGISTER("getMaster", CLuaBaseEntity::getMaster);
 
     SOL_REGISTER("getPetName", CLuaBaseEntity::getPetName);
