@@ -545,7 +545,7 @@ xi.shop =
             5988,     500,      xi.ki.RHAPSODY_IN_WHITE,   -- Instant Protect
             5989,     500,      xi.ki.RHAPSODY_IN_WHITE,   -- Instant Shell
             5990,     500,      xi.ki.RHAPSODY_IN_UMBER,   -- Instant Stoneskin
-	   10149,    5000,    xi.ki.RHAPSODY_IN_EMERALD,   -- Cipher of Areuhat
+	    10149,    5000,    xi.ki.RHAPSODY_IN_EMERALD,   -- Cipher of Areuhat
         },
 
         [curio.keys] =
