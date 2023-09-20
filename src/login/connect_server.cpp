@@ -54,7 +54,7 @@ ConnectServer::ConnectServer(int argc, char** argv)
     {
     };
 
-    uint32 newRLimit = 10240;
+    uint32 newRLimit = 4096;
 
     // Get old limits
     if (getrlimit(RLIMIT_NOFILE, &limits) == 0)
