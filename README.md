@@ -73,7 +73,7 @@ Keep in mind any reference to the folder ```server``` should instead be ```clayb
 
 -	Install the client with [Lutris](https://lutris.net/games/final-fantasy-xi-online/) on Linux. Windows users can download it [here](http://www.playonline.com/ff11us/download/media/install_win.html).
 
--	Connect to the server address <b>claybodin.mywire.org</b> using [Ashita](https://ashitaxi.com/). 
+-	Connect to the server address <b>claybodin.mywire.org</b> using [Ashita](https://ashitaxi.com/).    -    
 
 -	Improve the game's visuals with [XI-View](https://github.com/Caradog/XI-View) and [AshenbubsHD Texture Pack](https://www.nexusmods.com/finalfantasy11/mods/1).
 
@@ -91,3 +91,8 @@ Thinkpad W541
     <li>16 GB RAM</li>
     <li>500Mbps Fibre</li>
 </ul>
+<p align="center">
+    <img src="res/claybodin_logo.png">
+    <h1 align="center">Claybodin</h1>
+</p>
+

@@ -13,24 +13,24 @@
 #include "mobutils.h"
 #include "zoneutils.h"
 
-#include "../grades.h"
-#include "../map.h"
-#include "../mob_modifier.h"
-#include "../mob_spell_list.h"
+#include "grades.h"
+#include "map.h"
+#include "mob_modifier.h"
+#include "mob_spell_list.h"
 
-#include "../ai/ai_container.h"
-#include "../ai/controllers/trust_controller.h"
-#include "../ai/helpers/gambits_container.h"
-#include "../entities/mobentity.h"
-#include "../entities/trustentity.h"
-#include "../items/item_weapon.h"
-#include "../mobskill.h"
-#include "../packets/char_sync.h"
-#include "../packets/entity_update.h"
-#include "../packets/message_standard.h"
-#include "../status_effect_container.h"
-#include "../weapon_skill.h"
-#include "../zone_instance.h"
+#include "ai/ai_container.h"
+#include "ai/controllers/trust_controller.h"
+#include "ai/helpers/gambits_container.h"
+#include "entities/mobentity.h"
+#include "entities/trustentity.h"
+#include "items/item_weapon.h"
+#include "mobskill.h"
+#include "packets/char_sync.h"
+#include "packets/entity_update.h"
+#include "packets/message_standard.h"
+#include "status_effect_container.h"
+#include "weapon_skill.h"
+#include "zone_instance.h"
 
 struct TrustSpell_ID
 {
@@ -88,6 +88,8 @@ struct Trust_t
     int16 hth_sdt;
     int16 impact_sdt;
 
+    int16 magical_sdt;
+
     int16 fire_sdt;
     int16 ice_sdt;
     int16 wind_sdt;
@@ -107,63 +109,57 @@ struct Trust_t
     int8 dark_res_rank;
 
     Trust_t()
-    : EcoSystem(ECOSYSTEM::ECO_ERROR)
+    : trustID(0)
+    , pool(0)
+    , EcoSystem(ECOSYSTEM::ECO_ERROR)
+    , name_prefix(0)
+    , radius(0)
+    , m_Family(0)
+    , mJob(0)
+    , sJob(0)
+    , HPscale(0.f)
+    , MPscale(0.f)
+    , cmbSkill(0)
+    , cmbDmgMult(0)
+    , cmbDelay(0)
+    , speed(0)
+    , subSpeed(0)
+    , strRank(0)
+    , dexRank(0)
+    , vitRank(0)
+    , agiRank(0)
+    , intRank(0)
+    , mndRank(0)
+    , chrRank(0)
+    , attRank(0)
+    , defRank(0)
+    , evaRank(0)
+    , accRank(0)
+    , m_MobSkillList(0)
+    , hasSpellScript(false)
+    , spellList(0)
+    , slash_sdt(0)
+    , pierce_sdt(0)
+    , hth_sdt(0)
+    , impact_sdt(0)
+    , magical_sdt(0)
+    , fire_sdt(0)
+    , ice_sdt(0)
+    , wind_sdt(0)
+    , earth_sdt(0)
+    , thunder_sdt(0)
+    , water_sdt(0)
+    , light_sdt(0)
+    , dark_sdt(0)
+    , fire_res_rank(0)
+    , ice_res_rank(0)
+    , wind_res_rank(0)
+    , earth_res_rank(0)
+    , thunder_res_rank(0)
+    , water_res_rank(0)
+    , light_res_rank(0)
+    , dark_res_rank(0)
     {
-        trustID = 0;
-        pool    = 0;
-
-        name_prefix = 0;
-        radius      = 0;
-        m_Family    = 0;
-
-        mJob    = 0;
-        sJob    = 0;
-        HPscale = 0.f;
-        MPscale = 0.f;
-
-        cmbDmgMult = 0;
-        cmbDelay   = 0;
-        speed      = 0;
-
-        strRank = 0;
-        dexRank = 0;
-        vitRank = 0;
-        agiRank = 0;
-        intRank = 0;
-        mndRank = 0;
-        chrRank = 0;
-        attRank = 0;
-        defRank = 0;
-        evaRank = 0;
-        accRank = 0;
-
-        m_MobSkillList = 0;
-
-        hasSpellScript = false;
-        spellList      = 0;
-
-        slash_sdt  = 0;
-        pierce_sdt = 0;
-        hth_sdt    = 0;
-        impact_sdt = 0;
-
-        fire_sdt    = 0;
-        ice_sdt     = 0;
-        wind_sdt    = 0;
-        earth_sdt   = 0;
-        thunder_sdt = 0;
-        water_sdt   = 0;
-        light_sdt   = 0;
-        dark_sdt    = 0;
-
-        fire_res_rank    = 0;
-        ice_res_rank     = 0;
-        wind_res_rank    = 0;
-        earth_res_rank   = 0;
-        thunder_res_rank = 0;
-        water_res_rank   = 0;
-        light_res_rank   = 0;
-        dark_res_rank    = 0;
     }
 };
 
@@ -188,7 +184,7 @@ namespace trustutils
 
                 trustID->spellID = (uint32)sql->GetIntData(0);
 
-                g_PTrustIDList.push_back(trustID);
+                g_PTrustIDList.emplace_back(trustID);
             }
         }
 
@@ -234,6 +230,7 @@ namespace trustutils
                 mob_family_system.EVA, \
                 mob_resistances.slash_sdt, mob_resistances.pierce_sdt, \
                 mob_resistances.h2h_sdt, mob_resistances.impact_sdt, \
+                mob_resistances.magical_sdt, \
                 mob_resistances.fire_sdt, mob_resistances.ice_sdt, \
                 mob_resistances.wind_sdt, mob_resistances.earth_sdt, \
                 mob_resistances.lightning_sdt, mob_resistances.water_sdt, \
@@ -312,25 +309,27 @@ namespace trustutils
                 trust->hth_sdt    = (uint16)(sql->GetFloatData(33) * 1000);
                 trust->impact_sdt = (uint16)(sql->GetFloatData(34) * 1000);
 
-                trust->fire_sdt    = (int16)sql->GetIntData(35); // Modifier 54, base 10000 stored as signed integer. Positives signify less damage.
-                trust->ice_sdt     = (int16)sql->GetIntData(36); // Modifier 55, base 10000 stored as signed integer. Positives signify less damage.
-                trust->wind_sdt    = (int16)sql->GetIntData(37); // Modifier 56, base 10000 stored as signed integer. Positives signify less damage.
-                trust->earth_sdt   = (int16)sql->GetIntData(38); // Modifier 57, base 10000 stored as signed integer. Positives signify less damage.
-                trust->thunder_sdt = (int16)sql->GetIntData(30); // Modifier 58, base 10000 stored as signed integer. Positives signify less damage.
-                trust->water_sdt   = (int16)sql->GetIntData(40); // Modifier 59, base 10000 stored as signed integer. Positives signify less damage.
-                trust->light_sdt   = (int16)sql->GetIntData(41); // Modifier 60, base 10000 stored as signed integer. Positives signify less damage.
-                trust->dark_sdt    = (int16)sql->GetIntData(42); // Modifier 61, base 10000 stored as signed integer. Positives signify less damage.
+                trust->magical_sdt = (int16)sql->GetIntData(35); // Modifier 389, base 10000 stored as signed integer. Positives signify less damage.
 
-                trust->fire_res_rank    = (int8)sql->GetIntData(43);
-                trust->ice_res_rank     = (int8)sql->GetIntData(44);
-                trust->wind_res_rank    = (int8)sql->GetIntData(45);
-                trust->earth_res_rank   = (int8)sql->GetIntData(46);
-                trust->thunder_res_rank = (int8)sql->GetIntData(47);
-                trust->water_res_rank   = (int8)sql->GetIntData(48);
-                trust->light_res_rank   = (int8)sql->GetIntData(49);
-                trust->dark_res_rank    = (int8)sql->GetIntData(50);
+                trust->fire_sdt    = (int16)sql->GetIntData(36); // Modifier 54, base 10000 stored as signed integer. Positives signify less damage.
+                trust->ice_sdt     = (int16)sql->GetIntData(37); // Modifier 55, base 10000 stored as signed integer. Positives signify less damage.
+                trust->wind_sdt    = (int16)sql->GetIntData(38); // Modifier 56, base 10000 stored as signed integer. Positives signify less damage.
+                trust->earth_sdt   = (int16)sql->GetIntData(39); // Modifier 57, base 10000 stored as signed integer. Positives signify less damage.
+                trust->thunder_sdt = (int16)sql->GetIntData(40); // Modifier 58, base 10000 stored as signed integer. Positives signify less damage.
+                trust->water_sdt   = (int16)sql->GetIntData(41); // Modifier 59, base 10000 stored as signed integer. Positives signify less damage.
+                trust->light_sdt   = (int16)sql->GetIntData(42); // Modifier 60, base 10000 stored as signed integer. Positives signify less damage.
+                trust->dark_sdt    = (int16)sql->GetIntData(43); // Modifier 61, base 10000 stored as signed integer. Positives signify less damage.
 
-                g_PTrustList.push_back(trust);
+                trust->fire_res_rank    = (int8)sql->GetIntData(44);
+                trust->ice_res_rank     = (int8)sql->GetIntData(45);
+                trust->wind_res_rank    = (int8)sql->GetIntData(46);
+                trust->earth_res_rank   = (int8)sql->GetIntData(47);
+                trust->thunder_res_rank = (int8)sql->GetIntData(48);
+                trust->water_res_rank   = (int8)sql->GetIntData(49);
+                trust->light_res_rank   = (int8)sql->GetIntData(50);
+                trust->dark_res_rank    = (int8)sql->GetIntData(51);
+
+                g_PTrustList.emplace_back(trust);
             }
         }
     }
@@ -480,7 +479,7 @@ namespace trustutils
         }
 
         // add mob pool mods ahead of applying stats
-        mobutils::AddCustomMods(PTrust);
+        mobutils::AddSqlModifiers(PTrust);
 
         JOBTYPE mJob = PTrust->GetMJob();
         JOBTYPE sJob = PTrust->GetSJob();
@@ -529,7 +528,7 @@ namespace trustutils
         int32 scaleOver60       = 2;
         // int32 scaleOver75       = 3;
 
-        uint8 grade;
+        uint8 grade = 0;
 
         int32 mainLevelOver30     = std::clamp(mLvl - 30, 0, 30);
         int32 mainLevelUpTo60     = (mLvl < 60 ? mLvl - 1 : 59);

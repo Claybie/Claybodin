@@ -5,14 +5,6 @@
 -- qm7:       !pos -11 8 -185 62
 -- Biyaada:   !pos -65.802 -6.999 69.273 48
 -----------------------------------
-require('scripts/globals/common')
-require('scripts/globals/items')
-require('scripts/globals/quests')
-require('scripts/globals/interaction/quest')
-require('scripts/globals/npc_util')
-require('scripts/globals/titles')
-require('scripts/globals/zone')
------------------------------------
 
 local quest = Quest:new(xi.quest.log_id.AHT_URHGAN, xi.quest.id.ahtUrhgan.SAGA_OF_THE_SKYSERPENT)
 
@@ -147,7 +139,7 @@ quest.sections =
             {
                 [825] = function(player, csid, option, npc)
                     if quest:complete(player) then
-                        player:addCurrency("imperial_standing", 1000)
+                        player:addCurrency('imperial_standing', 1000)
                         player:messageSpecial(zones[player:getZoneID()].text.BESIEGED_OFFSET)
                     end
                 end,

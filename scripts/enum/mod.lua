@@ -671,8 +671,10 @@ xi.mod =
     MYTHIC_OCC_ATT_TWICE            = 865, -- Proc rate for "Occasionally attacks twice"
     MYTHIC_OCC_ATT_THRICE           = 866, -- Proc rate for "Occasionally attacks thrice"
 
-    EAT_RAW_FISH                    = 412, --
-    EAT_RAW_MEAT                    = 413, --
+    APPRECIATE_GYSAHL_GREENS        = 156, -- Enhances food effect of Gysahl Greens
+
+    EAT_RAW_FISH                    = 412, -- Without this, only Mithra can eat raw fish.
+    EAT_RAW_MEAT                    = 413, -- Without this, only Galka can eat raw meat.
 
     ENHANCES_CURSNA_RCVD            = 67,   -- Potency of "Cursna" effects received
     ENHANCES_CURSNA                 = 310,  -- Raises success rate of Cursna when removing effect (like Doom) that are not 100% chance to remove
@@ -706,6 +708,7 @@ xi.mod =
     ROLL_RANGE                      = 528, -- Additional range for COR roll abilities.
     PHANTOM_ROLL                    = 881, -- Phantom Roll+ Effect from SOA Rings.
     PHANTOM_DURATION                = 882, -- Phantom Roll Duration +.
+    PHANTOM_RECAST                  = 1076, -- Phantom Roll Recast -.
 
     ENHANCES_REFRESH                = 529, -- "Enhances Refresh" adds +1 per modifier to spell's tick result.
     NO_SPELL_MP_DEPLETION           = 530, -- % to not deplete MP on spellcast.
