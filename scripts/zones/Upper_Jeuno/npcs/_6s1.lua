@@ -85,7 +85,6 @@ entity.onEventFinish = function(player, csid, option, npc)
             player:addItem(ring[option - 4])
             player:addItem(10156)
             player:messageSpecial(ID.text.ITEM_OBTAINED, ring[option - 4])
-<<<<<<< HEAD
             player:messageSpecial(ID.text.ITEM_OBTAINED, 10156)
             player:setCharVar("COP-ringsTakenbr", ringsTaken + 1)
             player:setCharVar("COP-lastRingday", currentDay)
