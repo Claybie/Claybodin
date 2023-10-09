@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-<a href="https://github.com/Claybie/claybodin/actions/workflows/Ubuntu.yml?query=base"><img src="https://github.com/claybie/claybodin/actions/workflows/mariadb.yml/badge.svg"/></a>
+<a href="https://github.com/Claybie/claybodin/actions/workflows/Ubuntu.yml?query=base"><img src="https://github.com/claybie/claybodin/actions/workflows/Ubuntu.yml/badge.svg"/></a>
 <a href="https://github.com/Claybie/claybodin/actions/workflows/codeql-analysis.yml?query=base"><img src="https://github.com/claybie/claybodin/actions/workflows/codeql-analysis.yml/badge.svg"/></a>
 <a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg"/></a>
 
@@ -18,7 +18,7 @@ LeafSpringCog is a fork of LandSandBoat, and is used to run my own private serve
     -   Many Ciphers that are normally rewarded from Login Campaign points have been changed to rewards from quests or missions that pertain to those characters. The roadmap is for all Trusts to be acquired via storyline method, rather than with currency, FoV, RoE etc. Claybodin does not run a Login Campaign. 
     -   Weapon/Magic skillups have been removed; characters are always at max skill for their level. This QoL change is long overdue considering the state of the game in modern times.
 
-Visit the LandSandBoat [project page](https://github.com/LandSandBoat/server/) for more info. Claybodin is licensed under [GNU GPL v3](https://github.com/LandSandBoat/server/blob/base/LICENSE).
+Visit the LandSandBoat [project page](https://github.com/LandSandBoat/server/) for more info. LeafSpringCog is licensed under [GNU GPL v3](https://github.com/LandSandBoat/server/blob/base/LICENSE).
 
 ## Gentoo Install Guide
 
@@ -35,8 +35,8 @@ root # emerge -a dev-db/mariadb dev-lang/luajit dev-vcs/git net-libs/zeromq
 Clone the repo in your folder of choice, then copy the settings files where they can be sourced:
 ```
 user $ cd ~/ && mkdir git && cd ~/git 
-user $ git clone --recursive https://github.com/claybie/claybodin.git
-user $ cp claybodin/settings/default/* claybodin/settings
+user $ git clone --recursive https://github.com/claybie/LeafSpringCog.git
+user $ cp LeafSpringCog/settings/default/* LeafSpringCog/settings
 ```
 MariaDB will need to be configured and the database initialized before the service can be started. If you have issues, or are using systemd instead of OpenRC, refer to the [wiki](https://wiki.gentoo.org/wiki/MariaDB).
 ```
@@ -44,7 +44,7 @@ root # emerge --config dev-db/mariadb
 root # rc-update add mysql default
 root # rc-service mysql start
 ```
-In order to use dbtool for managing your database, additional packages are required, one of which is not in the gentoo repo. Upstream uses pip to install these packages, but that is not desired nor necessary on Gentoo. Thankfully with an overlay we can get what we need (ensure you have already installed and configured [eselect-repository](https://wiki.gentoo.org/wiki/Eselect/Repository)):
+In order to use dbtool for managing your database, additional packages are required, one of which is not in the Gentoo repo. Upstream uses pip to install these packages, but that is not desired nor necessary on Gentoo. Thankfully with an overlay we can get what we need (ensure you have already installed and configured [eselect-repository](https://wiki.gentoo.org/wiki/Eselect/Repository)):
 ```
 root # eselect repository add claytabase git https://github.com/claybie/claytabase.git
 root # emaint sync -r claytabase
@@ -63,7 +63,7 @@ You may now otherwise follow the [Quick Start Guide](https://github.com/LandSand
 Beginning with subsection:
 > Run the following script to improve database security:
 
-Keep in mind any reference to the folder ```server``` should instead be ```claybodin``` if you built from this repo.
+Keep in mind any reference to the folder ```server``` should instead be ```LeafSpringCog``` if you built from this repo.
 
 ## How To Play
 
