@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  Gentoo_build:
+  Sanity_Checks:
     runs-on: ubuntu-22.04
     container: gentoo/stage3:amd64-systemd
     steps:
