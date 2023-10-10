@@ -18,10 +18,10 @@ jobs:
       with:
         fetch-depth: 0
     - name: Install Dependencies
-    run: |
+      run:
         echo 'FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox"' >> /etc/portage/make.conf
 	echo 'EMERGE_DEFAULT_OPTS="--binpkg-respect-use=n --getbinpkg=y"' >> /etc/portage/make.conf
-	mkdir /etc/portage/repos.conf
+        mkdir /etc/portage/repos.conf
         touch /etc/portage/repos.conf/gentoo.conf
         echo '[gentoo]
         sync-type = webrsync' >> /etc/portage/repos.conf/gentoo.conf
