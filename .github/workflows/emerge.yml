@@ -25,6 +25,7 @@ jobs:
         touch /etc/portage/repos.conf/gentoo.conf
         echo '[gentoo]
         sync-type = webrsync' >> /etc/portage/repos.conf/gentoo.conf
+        rm -r /etc/portage/binrepos.conf
         touch /etc/portage/binrepos.conf
         echo '[binhost]
         priority = 9999
