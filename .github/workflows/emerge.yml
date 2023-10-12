@@ -114,7 +114,7 @@ jobs:
             fi
           fi
         done
-        git init
+        git init && wait -n
         git diff --color >> cpp_formatting_checks.txt
         git reset --hard
         if [ -s cpp_formatting_checks.txt ]
