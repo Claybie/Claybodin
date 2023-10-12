@@ -12,7 +12,7 @@ concurrency:
 jobs:
   Sanity_Checks:
     runs-on: ubuntu-22.04
-    container: gentoo/stage3:amd64-systemd
+    container: gentoo/stage3:amd64-desktop-openrc
     steps:
     - uses: actions/checkout@v3
       with:
