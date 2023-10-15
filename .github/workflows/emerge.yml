@@ -197,7 +197,7 @@ jobs:
   Linux_Clang16_64bit:
     needs: Sanity_Checks
     runs-on: ubuntu-22.04
-    container: gentoo/stage3:amd64-systemd
+    container: gentoo/stage3:amd64-desktop-openrc
     steps:
     - uses: actions/checkout@v3
       with:
@@ -255,7 +255,7 @@ jobs:
   Linux_ClangTidy16_64bit:
     needs: Sanity_Checks
     runs-on: ubuntu-22.04
-    container: gentoo/stage3:amd64-systemd
+    container: gentoo/stage3:amd64-desktop-openrc
     steps:
     - uses: actions/checkout@v3
       with:
@@ -309,7 +309,7 @@ jobs:
   Linux_GCC13_64bit:
     needs: Sanity_Checks
     runs-on: ubuntu-22.04
-    container: gentoo/stage3:amd64-systemd
+    container: gentoo/stage3:amd64-desktop-openrc
     steps:
     - uses: actions/checkout@v3
       with:
@@ -375,7 +375,7 @@ jobs:
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
-    container: gentoo/stage3:amd64-systemd
+    container: gentoo/stage3:amd64-desktop-openrc
     steps:
     - uses: actions/checkout@v3
       with:
@@ -575,7 +575,7 @@ jobs:
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
-    container: gentoo/stage3:amd64-systemd
+    container: gentoo/stage3:amd64-desktop-openrc
     steps:
     - uses: actions/checkout@v3
       with:
