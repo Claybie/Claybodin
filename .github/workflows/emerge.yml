@@ -105,7 +105,8 @@ jobs:
     - name: CPP Formatting Checks
       if: always()
       run: |
-        git init
+        git clone https://github.com/claybie/LeafSpringCog.git
+        cd LeafSpringCog
         clang-format -version
         touch cpp_formatting_checks.txt
         for changed_file in '${{ steps.changed-files.outputs.all }}'; do
