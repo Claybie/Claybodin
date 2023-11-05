@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="res/claybodin_logo.png">
+    <img src="res/lsc.png">
     <h1 align="center">LeafSpringCog</h1>
 </p>
 
