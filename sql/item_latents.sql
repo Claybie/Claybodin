@@ -237,9 +237,7 @@ INSERT INTO `item_latents` VALUES (13143,368,25,13,193);
 -- Uggalepih Pendant
 INSERT INTO `item_latents` VALUES (13145,28,8,4,51);     -- "Magic Atk. Bonus" while MP <51%
 
-----------------------------------------------------------
--- Brisingamen+1
-----------------------------------------------------------
+-- Brisingamen +1
 INSERT INTO `item_latents` VALUES (13162,2,12,26,0);     -- Daytime: HP +12
 INSERT INTO `item_latents` VALUES (13162,5,12,26,1);     -- Nighttime: MP +12
 INSERT INTO `item_latents` VALUES (13162,8,7,28,0);      -- Firesday: STR +7
@@ -998,6 +996,10 @@ INSERT INTO `item_latents` VALUES (14901,302,2,49,5929); -- triple attack 2% Ojo
 INSERT INTO `item_latents` VALUES (14921,8,13,26,2);     -- Dusk - Dawn: STR +13
 INSERT INTO `item_latents` VALUES (14921,384,400,26,2);  -- Dusk - Dawn: Haste +4%
 
+-- Carbuncles Cuffs
+INSERT INTO `item_latents` VALUES (14931,370,5,13,154);  -- Shining Ruby: Regen +5HP/tick
+
+-- Storm Gages
 INSERT INTO `item_latents` VALUES (14937,71,3,58,0);     -- storm gages hmp +3
 
 -- Deadeye Gloves
@@ -1623,6 +1625,12 @@ INSERT INTO `item_latents` VALUES (17212,26,15,37,6);
 INSERT INTO `item_latents` VALUES (17212,26,20,37,3);
 INSERT INTO `item_latents` VALUES (17212,26,20,37,5);
 INSERT INTO `item_latents` VALUES (17212,26,25,37,4);
+
+-- Shigeto Bow
+INSERT INTO `item_latents` VALUES (18142,26,7,62,12);     -- RACC +7 for Samurai main job
+
+-- Shigeto Bow +1
+INSERT INTO `item_latents` VALUES (18143,26,8,62,12);     -- RACC +8 for Samurai main job
 
 -- Musketeer Gun +1/+2
 INSERT INTO `item_latents` VALUES (17269,24,8,53,1);     -- RATT +8 in areas outside own nation's control
@@ -2639,6 +2647,9 @@ INSERT INTO `item_latents` VALUES (23096,291,16,13,354); -- Kasuga Kabuto +2: EF
 INSERT INTO `item_latents` VALUES (23097,288,11,13,421); -- Hattori Zukin +2: EFFECT_INNIN: DOUBLE_ATTACK: 11
 
 INSERT INTO `item_latents` VALUES (23100,311,26,13,164); -- Hashishin Kavuk +2: EFFECT_CHAIN_AFFINITY: MAGIC_DAMAGE: 26
+
+INSERT INTO `item_latents` VALUES (23103,165,1,13,443);  -- Maculele Tiara +2: EFFECT_CLIMACTIC_FLOURISH: CRITHITRATE: 1
+INSERT INTO `item_latents` VALUES (23103,421,28,13,443); -- Maculele Tiara +2: EFFECT_CLIMACTIC_FLOURISH: CRIT_DMG_INCREASE: 28%
 
 INSERT INTO `item_latents` VALUES (23197,518,10,13,57);  -- WAR AF2 119 +2 Hands Defender Shield Rate +10
 

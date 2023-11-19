@@ -451,7 +451,7 @@ void CZoneEntities::DecreaseZoneCounter(CCharEntity* PChar)
         synthutils::sendSynthDone(PChar);
     }
 
-    // TODO: могут возникать проблемы с переходом между одной и той же зоной (zone == prevzone)
+    // TODO: There may be problems transitioning between the same zone (zone == prevzone)
 
     m_charList.erase(PChar->targid);
     charTargIds.erase(PChar->targid);
@@ -735,6 +735,19 @@ void CZoneEntities::SpawnPCs(CCharEntity* PChar)
 
         // Despawn character if it's a hidden GM, is in a different mog house, or if player is in a conflict while other is not, or too far up/down
         if (pc->m_isGMHidden || PChar->m_moghouseID != pc->m_moghouseID)
+        {
+            toRemove.emplace_back(pc);
+            continue;
+        }
+
+        // TODO: This is a temporary fix so that Feretory _seems_ like a solo zone.
+        // We need a better solution for this that properly supports:
+        // - Shared moghouse (both floors)
+        // - Mog Garden
+        // - Feretory
+        // and the NPCs that exist per-player in those zones (Garden, Music Items in MH, etc.)
+        // Despawn character if it's a hidden GM, is in a different mog house, or if player is in a conflict while other is not, or too far up/down
+        if (PChar->loc.zone->GetID() == ZONE_FERETORY)
         {
             toRemove.emplace_back(pc);
             continue;
@@ -1196,7 +1209,7 @@ void CZoneEntities::PushPacket(CBaseEntity* PEntity, GLOBAL_MESSAGE_TYPE message
         // clang-format off
         switch (message_type)
         {
-            case CHAR_INRANGE_SELF:
+            case CHAR_INRANGE_SELF: // NOTE!!!: This falls through to CHAR_INRANGE so both self and the local area get the packet
             {
                 TracyZoneCString("CHAR_INRANGE_SELF");
                 if (PEntity->objtype == TYPE_PC)

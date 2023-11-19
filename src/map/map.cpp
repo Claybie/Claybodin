@@ -21,6 +21,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 
 #include "map.h"
 
+#include "common/async.h"
 #include "common/blowfish.h"
 #include "common/console_service.h"
 #include "common/logging.h"
@@ -43,6 +44,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 #include "linkshell.h"
 #include "message.h"
 #include "mob_spell_list.h"
+#include "monstrosity.h"
 #include "packet_guard.h"
 #include "packet_system.h"
 #include "roe.h"
@@ -274,6 +276,8 @@ int32 do_init(int32 argc, char** argv)
     fishingutils::InitializeFishingSystem();
     instanceutils::LoadInstanceList();
 
+    monstrosity::LoadStaticData();
+
     ShowInfo("do_init: server is binding with port %u", map_port == 0 ? settings::get<uint16>("network.MAP_PORT") : map_port);
     map_fd = makeBind_udp(INADDR_ANY, map_port == 0 ? settings::get<uint16>("network.MAP_PORT") : map_port);
 
@@ -371,6 +375,10 @@ int32 do_init(int32 argc, char** argv)
     });
     // clang-format on
 
+#ifdef TRACY_ENABLE
+    ShowInfo("*** TRACY IS ENABLED ***");
+#endif // TRACY_ENABLE
+
     gProcessLoaded = true;
 
     return 0;
@@ -405,6 +413,7 @@ void do_final(int code)
 
     CTaskMgr::delInstance();
     CVanaTime::delInstance();
+    Async::delInstance();
 
     timer_final();
     socket_final();
@@ -801,7 +810,7 @@ int32 parse(int8* buff, size_t* buffsize, sockaddr_in* from, map_session_data_t*
         }
     }
 
-    if (PChar->retriggerLatentsAfterPacketParsing)
+    if (PChar->retriggerLatents)
     {
         for (uint8 equipSlotID = 0; equipSlotID < 16; ++equipSlotID)
         {
@@ -810,7 +819,7 @@ int32 parse(int8* buff, size_t* buffsize, sockaddr_in* from, map_session_data_t*
                 PChar->PLatentEffectContainer->CheckLatentsEquip(equipSlotID);
             }
         }
-        PChar->retriggerLatentsAfterPacketParsing = false; // reset for next packet parse
+        PChar->retriggerLatents = false; // reset as we have retriggered the latents somewhere
     }
 
     map_session_data->client_packet_id = SmallPD_Code;

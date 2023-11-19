@@ -447,7 +447,8 @@ enum class Mod
     CHARM_CHANCE        = 391,  // extra chance to charm (light+apollo staff ect)
     FERAL_HOWL_DURATION = 503,  // +20% duration per merit when wearing augmented Monster Jackcoat +2
     JUG_LEVEL_RANGE     = 564,  // Decreases the level range of spawned jug pets. Maxes out at 2.
-    SIC_READY_RECAST    = 1052, // TODO: SIC/Ready recast reduction (seconds)
+    CALL_BEAST_DELAY    = 572,  // Lowers Call Beast recast
+    SIC_READY_RECAST    = 1052, // SIC/Ready recast reduction (seconds)
 
     // Bard
     MINNE_EFFECT           = 433,  //
@@ -483,6 +484,7 @@ enum class Mod
     RAPID_SHOT              = 359,  // Percent chance to proc rapid shot
     WIDESCAN                = 340,  //
     BARRAGE_ACC             = 420,  // Barrage accuracy
+    BARRAGE_COUNT           = 138,  // Increases Barrage shots by 1
     DOUBLE_SHOT_RATE        = 422,  // The rate that double shot can proc. Without this, the default is 40%.
     VELOCITY_SNAPSHOT_BONUS = 423,  // Increases Snapshot whilst Velocity Shot is up.
     VELOCITY_RATT_BONUS     = 424,  // Increases Ranged Attack whilst Velocity Shot is up.
@@ -544,6 +546,7 @@ enum class Mod
     CARBUNCLE_LVL_BONUS       = 1041, // Carbuncle: Lv.+ (Increases Carbuncle's base level above 99)
     CAIT_SITH_LVL_BONUS       = 1042, // Cait Sith: Lv.+ (Increases Cait Sith's base level above 99)
     ENHANCES_MANA_CEDE        = 74,   // Bonus % to Mana Cede effect, +1 = 1%
+    SUMMONING_MAGIC_CAST      = 1078, // Summoning magic casting time reduction in seconds
 
     // Blue Mage
     BLUE_POINTS          = 309,  // Tracks extra blue points
@@ -556,7 +559,7 @@ enum class Mod
     ROLL_RANGE        = 528,  // Additional range for COR roll abilities.
     JOB_BONUS_CHANCE  = 542,  // Chance to apply job bonus to COR roll without having the job in the party.
     TRIPLE_SHOT_RATE  = 999,  // Percent increase to Triple Shot Rate
-    QUICK_DRAW_RECAST = 1060, // TODO: Quick Draw Charge Reduction (seconds)
+    QUICK_DRAW_RECAST = 1060, // Quick Draw Charge Reduction (seconds)
 
     DMG_REFLECT            = 316,  // Tracks totals
     ROLL_ROGUES            = 317,  // Tracks totals
@@ -632,6 +635,7 @@ enum class Mod
     SAMBA_PDURATION          = 498,  // Samba percent duration bonus
     REVERSE_FLOURISH_EFFECT  = 836,  // Reverse Flourish effect in tenths of squared term multiplier
     MAX_FINISHING_MOVE_BONUS = 988,  // Increases the maximum number of finishing moves that may be stored
+    WALTZ_COST               = 139,  // Reduce Waltz cost by 5tp (50 post 1000tp scale)
     STEP_TP_CONSUMED         = 1077, // Modifies the amount of TP consumed when using steps
 
     // Scholar
@@ -668,12 +672,13 @@ enum class Mod
     LIFE_CYCLE_EFFECT    = 1029, // Adds bonus HP% returned to the luopan when using Life Cycle
     AURA_SIZE            = 1030, // Used to extend aura size, the formula is 6.25 + (PEntity->getMod(Mod::AURA_SIZE) / 100) so adding 100 will make this 7.25
 
-    ENSPELL           = 341, // stores the type of enspell active (0 if nothing)
-    ENSPELL_DMG       = 343, // stores the base damage of the enspell before reductions
-    ENSPELL_DMG_BONUS = 432, //
-    ENSPELL_CHANCE    = 856, // Chance of enspell activating (0 = 100%, 10 = 10%, 30 = 30%, ...)
-    SPIKES            = 342, // store the type of spike spell active (0 if nothing)
-    SPIKES_DMG        = 344, // stores the base damage of the spikes before reductions
+    ENSPELL           = 341,  // stores the type of enspell active (0 if nothing)
+    ENSPELL_DMG       = 343,  // stores the base damage of the enspell before reductions
+    ENSPELL_DMG_BONUS = 432,  //
+    ENSPELL_CHANCE    = 856,  // Chance of enspell activating (0 = 100%, 10 = 10%, 30 = 30%, ...)
+    SPIKES            = 342,  // store the type of spike spell active (0 if nothing)
+    SPIKES_DMG        = 344,  // stores the base damage of the spikes before reductions
+    SPIKES_DMG_BONUS  = 1079, // Increases Blaze/Ice/Shock spikes damage by percentage (e.g. mod value 50 = +50% spikes damage)
 
     TP_BONUS    = 345, //
     SAVETP      = 880, // SAVETP Effect for Miser's Roll / ATMA / Hagakure.
@@ -987,7 +992,7 @@ enum class Mod
     // 217 to 223
     // 271 to 280
     //
-    // SPARE = 1078 and onward
+    // SPARE = 1080 and onward
 };
 
 // temporary workaround for using enum class as unordered_map key until compilers support it
