@@ -65,7 +65,6 @@ Beginning with subsection:
 
 Keep in mind any reference to the folder ```server``` should instead be ```LeafSpringCog``` if you built from this repo.
 
-<<<<<<< HEAD
 ## How To Play
 
 -	Install the client with [Lutris](https://lutris.net/games/final-fantasy-xi-online/) on Linux. Windows users can download it [here](http://www.playonline.com/ff11us/download/media/install_win.html).
@@ -75,16 +74,4 @@ Keep in mind any reference to the folder ```server``` should instead be ```LeafS
 -	Improve the game's visuals with [XI-View](https://github.com/Caradog/XI-View) and [AshenbubsHD Texture Pack](https://www.nexusmods.com/finalfantasy11/mods/1).
 
 Join the [FFXiPrivateServers](https://discord.gg/THnWnC9fjr) discord server for information on private servers, LandSandBoat development, client setup for Windows & Linux and more!
-=======
-LandSandBoat is licensed under [GNU GPL v3](https://github.com/LandSandBoat/server/blob/base/LICENSE)
 
-## Thanks
-
-Thanks to all contributors past and present, we wouldn't be here without you!
-
-Thanks to GitHub for hosting us, and for all the CI minutes we use!
-
-Thanks to JetBrains for providing our core contributors with "All Products Pack" licenses for our continued open source work. It's much appreciated, we love ReSharper C++ and CLion!
-
-<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains Logo (Main) logo." width="200">
->>>>>>> 6e4bc7f77693b6ede1cb175b8d783302de25bf5a
