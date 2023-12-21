@@ -1098,7 +1098,7 @@ xi.regime.bookOnTrigger = function(player, regimeType)
 
         player:startEvent(info.event, 0, arg2, cipher, arg4, 0, 0, player:getCurrency('valor_point'), player:getCharVar('[regime]id'))
     else
-        player:PrintToPlayer('Disabled.')
+        player:printToPlayer('Disabled.')
     end
 end
 
@@ -1202,7 +1202,7 @@ xi.regime.bookOnEventFinish = function(player, option, regimeType)
             end,
 
             ['HOMING_INSTINCT'] = function()
-                player:addStatusEffectEx(xi.effect.TELEPORT, 0, xi.teleport.id.WARP, 0, 1)
+                player:addStatusEffectEx(xi.effect.TELEPORT, 0, xi.teleport.id.WARP, 0, 3)
             end,
 
             ['RERAISE'] = function()

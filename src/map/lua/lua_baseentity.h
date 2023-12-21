@@ -52,8 +52,8 @@ public:
     // Messaging System
     void showText(CLuaBaseEntity* mob, uint16 messageID, sol::object const& p0, sol::object const& p1, sol::object const& p2, sol::object const& p3);
     void messageText(CLuaBaseEntity* PLuaBaseEntity, uint16 messageID, sol::object const& arg2, sol::object const& arg3);
-    void PrintToPlayer(std::string const& message, sol::object const& messageTypeObj, sol::object const& nameObj);
-    void PrintToArea(std::string const& message, sol::object const& arg1, sol::object const& arg2, sol::object const& arg3);
+    void printToPlayer(std::string const& message, sol::object const& messageTypeObj, sol::object const& nameObj);
+    void printToArea(std::string const& message, sol::object const& arg1, sol::object const& arg2, sol::object const& arg3);
     void messageBasic(uint16 messageID, sol::object const& p0, sol::object const& p1, sol::object const& target);
     void messageName(uint16 messageID, sol::object const& entity, sol::object const& p0, sol::object const& p1,
                      sol::object const& p2, sol::object const& p3, sol::object const& chat);
@@ -114,6 +114,7 @@ public:
     bool  isNPC();
     bool  isMob();
     bool  isPet();
+    bool  isTrust();
     bool  isAlly();
 
     // AI and Control
@@ -182,6 +183,9 @@ public:
     void   updateToEntireZone(uint8 statusID, uint8 animation, sol::object const& matchTime); // Forces an update packet to update the NPC entity zone-wide
 
     void sendEntityUpdateToPlayer(CLuaBaseEntity* entityToUpdate, uint8 entityUpdate, uint8 updateMask);
+
+    void forceRezone();
+    void forceLogout();
 
     auto  getPos() -> sol::table;
     void  showPosition();
@@ -600,8 +604,9 @@ public:
 
     bool   isDualWielding();
     bool   isUsingH2H();
-    uint16 getBaseDelay();       // get base delay of entity, melee only
-    uint16 getBaseRangedDelay(); // get base delay of entity, ranged only
+    uint16 getBaseWeaponDelay(uint16 slot); // get base delay of weapon
+    uint16 getBaseDelay();                  // get base delay of entity, melee only
+    uint16 getBaseRangedDelay();            // get base delay of entity, ranged only
 
     float checkLiementAbsorb(uint16 damageType); // return 1.0 if did not absorb, return >= -1.0 if did absorb
 
@@ -696,6 +701,7 @@ public:
     uint16 getRangedDmg();                                                             // Get ranged weapon DMG rating
     uint16 getRangedDmgRank();                                                         // Get ranged weapond DMG rating used for calculating rank
     uint16 getAmmoDmg();                                                               // Get ammo DMG rating
+    uint16 getWeaponHitCount(bool offhand);                                            // Get PC weapon hit count (Occasionally Attacks N times weapons)
 
     void removeAmmo();
 

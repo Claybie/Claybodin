@@ -30,6 +30,8 @@ typedef std::vector<std::unique_ptr<CInstance>> instanceList_t;
 class CZoneInstance : public CZone
 {
 public:
+    DISALLOW_COPY_AND_MOVE(CZoneInstance);
+
     virtual CCharEntity* GetCharByName(std::string const& name) override; // finds the player if exists in zone
     virtual CCharEntity* GetCharByID(uint32 id) override;
     virtual CBaseEntity* GetEntity(uint16 targid, uint8 filter = -1) override; // get a pointer to any entity in the zone
@@ -64,6 +66,7 @@ public:
     virtual void UpdateEntityPacket(CBaseEntity* PEntity, ENTITYUPDATE type, uint8 updatemask, bool alwaysInclude = false) override;
 
     virtual void ZoneServer(time_point tick) override;
+    virtual void CheckTriggerAreas() override;
 
     virtual void ForEachChar(std::function<void(CCharEntity*)> const& func) override;
     virtual void ForEachCharInstance(CBaseEntity* PEntity, std::function<void(CCharEntity*)> const& func) override;
@@ -72,10 +75,10 @@ public:
     CInstance* CreateInstance(uint16 instanceid);
 
     CZoneInstance(ZONEID ZoneID, REGION_TYPE RegionID, CONTINENT_TYPE ContinentID, uint8 levelRestriction);
-    ~CZoneInstance();
+    ~CZoneInstance() override;
 
 private:
     instanceList_t instanceList;
 };
 
-#endif
+#endif // _CZONEINSTANCE_H

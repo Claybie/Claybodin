@@ -821,8 +821,42 @@ INSERT INTO `item_mods_pet` VALUES (23191,384,500,3); -- Automaton - HASTE_GEAR:
 -- Geomancy Mitaines +2
 INSERT INTO `item_mods_pet` VALUES (23195,160,-1200,8); -- Luopan - DMG: -1200
 
+-- Ankusa Gloves +2
+INSERT INTO `item_mods_pet` VALUES (23205,161,-500,0); -- Pet: DMGPHYS: -5%
+
+-- Pteroslaver finger gauntlets +2
+INSERT INTO `item_mods_pet` VALUES (23210,163,-1000,2); -- Wyvern: DMGMAGIC: -10%
+
+-- Glyphic Bracers +2
+INSERT INTO `item_mods_pet` VALUES (23211,25,42,1);   -- Avatar: ACC: 42
+INSERT INTO `item_mods_pet` VALUES (23211,384,600,1); -- Avatar: HASTE_GEAR: 6%
+
+-- Pitre Dastanas +2
+INSERT INTO `item_mods_pet` VALUES (23214,289,10,3);  -- Automaton: SUBTLE_BLOW: 10
+INSERT INTO `item_mods_pet` VALUES (23214,384,600,3); -- Automaton: HASTE_GEAR: 6%
+
 -- Beckoner's Bracers +2
-INSERT INTO `item_mods_pet` VALUES (23233,126,8,1); -- Avatar - BP_DAMAGE: 8
+INSERT INTO `item_mods_pet` VALUES (23227,25,52,0); -- Pet: ACC: 52
+INSERT INTO `item_mods_pet` VALUES (23227,26,52,0); -- Pet: RACC: 52
+INSERT INTO `item_mods_pet` VALUES (23227,30,52,0); -- Pet: MACC: 52
+
+-- Peltast's vambraces +2
+INSERT INTO `item_mods_pet` VALUES (23232,25,52,2); -- Wyvern: ACC: 52
+INSERT INTO `item_mods_pet` VALUES (23232,30,52,2); -- Wyvern: MACC: 52
+
+-- Beckoner's Bracers +2
+INSERT INTO `item_mods_pet` VALUES (23233,25,52,1); -- Avatar: ACC: 52
+INSERT INTO `item_mods_pet` VALUES (23233,26,52,1); -- Avatar: RACC: 52
+INSERT INTO `item_mods_pet` VALUES (23233,30,52,1); -- Avatar: MACC: 52
+INSERT INTO `item_mods_pet` VALUES (23233,126,8,1); -- Avatar: BP_DAMAGE: 8
+
+-- Karagoz Guanti +2
+INSERT INTO `item_mods_pet` VALUES (23236,8,21,3);  -- Automaton: STR: 21
+INSERT INTO `item_mods_pet` VALUES (23236,9,21,3);  -- Automaton: DEX: 21
+INSERT INTO `item_mods_pet` VALUES (23236,10,21,3); -- Automaton: AGI: 21
+INSERT INTO `item_mods_pet` VALUES (23236,25,52,3); -- Automaton: ACC: 52
+INSERT INTO `item_mods_pet` VALUES (23236,26,52,3); -- Automaton: RACC: 52
+INSERT INTO `item_mods_pet` VALUES (23236,30,52,3); -- Automaton: MACC: 52
 
 -- Vishap Brais +2
 INSERT INTO `item_mods_pet` VALUES (23254,3,25,2); -- Wyvern - HPP: 25
