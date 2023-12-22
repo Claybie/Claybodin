@@ -10,13 +10,15 @@
 
 </p>
 
-LeafSpringCog is a fork of LandSandBoat, and is used to run my own private server: Claybodin, which I keep online mostly for myself but is open to the public. It differs from LSB in the folowing ways:
+LeafSpringCog is a fork of LandSandBoat, and is used to run Claybodin (a server I keep online mostly for myself but is open to the public). It differs from LSB in the folowing ways:
 
 -   Structured to build on and tested for running on Gentoo Linux as well as Ubuntu (LandSandBoat has "official" support for Ubuntu and Windows only). While it may build on other Linux distros, you will not be able to build on Windows from this repo.
 
 -   Host a gameplay envorinment with specific changes from retail, including:
     -   Many Ciphers that are normally rewarded from Login Campaign points have been changed to rewards from quests or missions that pertain to those characters. The roadmap is for all Trusts to be acquired via storyline method, rather than with currency, FoV, RoE etc. Claybodin does not run a Login Campaign. 
     -   Weapon/Magic skillups have been removed; characters are always at max skill for their level. This QoL change is long overdue considering the state of the game in modern times.
+
+Other changes may happen in the future.
 
 Visit the LandSandBoat [project page](https://github.com/LandSandBoat/server/) for more info. LeafSpringCog is licensed under [GNU GPL v3](https://github.com/LandSandBoat/server/blob/base/LICENSE).
 
@@ -69,9 +71,9 @@ Keep in mind any reference to the folder ```server``` should instead be ```LeafS
 
 -	Install the client with [Lutris](https://lutris.net/games/final-fantasy-xi-online/) on Linux. Windows users can download it [here](http://www.playonline.com/ff11us/download/media/install_win.html).
 
--	Connect to the server address <b>(coming soon)</b> using [Ashita](https://ashitaxi.com/).    -    
+-	Connect to the server address <b>claybodin.org</b> using [Ashita](https://ashitaxi.com/).    
 
--	Improve the game's visuals with [XI-View](https://github.com/Caradog/XI-View) and [AshenbubsHD Texture Pack](https://www.nexusmods.com/finalfantasy11/mods/1).
+-	Improve the game's visuals with [XI View 2.0](https://github.com/KenshiDRK/XiView) and [AshenbubsHD Texture Pack](https://www.nexusmods.com/finalfantasy11/mods/1).
 
 Join the [FFXiPrivateServers](https://discord.gg/THnWnC9fjr) discord server for information on private servers, LandSandBoat development, client setup for Windows & Linux and more!
 
