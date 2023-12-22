@@ -72,7 +72,7 @@ Keep in mind any reference to the folder ```server``` should instead be ```LeafS
 -	Install the client with [Lutris](https://lutris.net/games/final-fantasy-xi-online/) on Linux. Windows users can download it [here](http://www.playonline.com/ff11us/download/media/install_win.html).
 
 -	Connect to the server address <b>claybodin.org</b> using [Ashita](https://ashitaxi.com/).    
-
+    -  You will need to edit Ashita's configuration to point to the LSB version of xiloader instead of the default bootloader; you can get it from the LSB xiloader [Releases page](https://github.com/LandSandBoat/xiloader/releases).
 -	Improve the game's visuals with [XI View 2.0](https://github.com/KenshiDRK/XiView) and [AshenbubsHD Texture Pack](https://www.nexusmods.com/finalfantasy11/mods/1).
 
 Join the [FFXiPrivateServers](https://discord.gg/THnWnC9fjr) discord server for information on private servers, LandSandBoat development, client setup for Windows & Linux and more!
