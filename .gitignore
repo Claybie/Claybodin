@@ -253,3 +253,4 @@ xi_search.dSYM
 # Upstream junk
 .github/workflows/pr_labels.yml
 .vscode/*
+*.dll

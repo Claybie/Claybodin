@@ -2,7 +2,7 @@
 
 ## License
 
-- claybodin operates under [GNU General Public License v3.0](https://github.com/LandSandBoat/server/blob/base/LICENSE).
+- Claybodin operates under [GNU General Public License v3.0](https://github.com/LandSandBoat/server/blob/base/LICENSE).
 
 ## General Guidelines
 
