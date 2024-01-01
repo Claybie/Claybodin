@@ -4,6 +4,3 @@
 [submodule "losmeshes"]
 	path = losmeshes
 	url = https://github.com/LandSandBoat/losmeshes.git
-[submodule "documentation/wiki"]
-	path = documentation/wiki
-	url = https://github.com/claybie/LeafSpringCog.git
