@@ -34,9 +34,9 @@ jobs:
         touch /etc/portage/package.accept_keywords/mariadb-connector-c
         touch /etc/portage/package.accept_keywords/mariadb-connector-python
         touch /etc/portage/package.accept_keywords/diff-so-fancy
-        echo '=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
-        echo '=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
-        echo '=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
+        echo '>=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
+        echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
+        echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
         emerge --quiet-build dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
         ln -s /usr/lib/llvm/16/bin/clang-format /usr/bin/
     - id: changed-files
@@ -214,9 +214,9 @@ jobs:
         touch /etc/portage/package.accept_keywords/mariadb-connector-c
         touch /etc/portage/package.accept_keywords/mariadb-connector-python
         touch /etc/portage/package.accept_keywords/diff-so-fancy
-        echo '=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
-        echo '=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
-        echo '=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
+        echo '>=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
+        echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
+        echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
         emerge --quiet-build dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
         ln -s /usr/lib/llvm/16/bin/clang-format /usr/bin/
     #- name: Cache 'build' folder
@@ -268,9 +268,9 @@ jobs:
         touch /etc/portage/package.accept_keywords/mariadb-connector-c
         touch /etc/portage/package.accept_keywords/mariadb-connector-python
         touch /etc/portage/package.accept_keywords/diff-so-fancy
-        echo '=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
-        echo '=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
-        echo '=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
+        echo '>=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
+        echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
+        echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
         emerge --quiet-build dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
         ln -s /usr/lib/llvm/16/bin/clang-format /usr/bin/
     #- name: Cache 'build' folder
@@ -318,9 +318,9 @@ jobs:
         touch /etc/portage/package.accept_keywords/mariadb-connector-c
         touch /etc/portage/package.accept_keywords/mariadb-connector-python
         touch /etc/portage/package.accept_keywords/diff-so-fancy
-        echo '=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
-        echo '=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
-        echo '=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
+        echo '>=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
+        echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
+        echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
         emerge --quiet-build dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
         ln -s /usr/lib/llvm/16/bin/clang-format /usr/bin/
     #- name: Cache 'build' folder
@@ -375,9 +375,9 @@ jobs:
         touch /etc/portage/package.accept_keywords/mariadb-connector-c
         touch /etc/portage/package.accept_keywords/mariadb-connector-python
         touch /etc/portage/package.accept_keywords/diff-so-fancy
-        echo '=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
-        echo '=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
-        echo '=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
+        echo '>=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
+        echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
+        echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
         emerge --quiet-build dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
         ln -s /usr/lib/llvm/16/bin/clang-format /usr/bin/
     - name: Verify MySQL connection from container
@@ -562,9 +562,9 @@ jobs:
         touch /etc/portage/package.accept_keywords/mariadb-connector-c
         touch /etc/portage/package.accept_keywords/mariadb-connector-python
         touch /etc/portage/package.accept_keywords/diff-so-fancy
-        echo '=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
-        echo '=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
-        echo '=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
+        echo '>=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
+        echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
+        echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
         emerge --quiet-build dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
         ln -s /usr/lib/llvm/16/bin/clang-format /usr/bin/
     - name: Verify MySQL connection from container
