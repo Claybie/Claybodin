@@ -5,5 +5,5 @@
 	path = losmeshes
 	url = https://github.com/LandSandBoat/losmeshes.git
 [submodule "documentation/wiki"]
-	path = README.md
+	path = documentation/wiki
 	url = https://github.com/claybie/LeafSpringCog.git
