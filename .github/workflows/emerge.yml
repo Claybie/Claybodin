@@ -4,7 +4,6 @@ on:
   push:
     branches:
     # disabling for testing
-    #  - gentoo-workflow
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}

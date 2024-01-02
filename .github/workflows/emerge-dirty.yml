@@ -1,4 +1,4 @@
-name: "Gentoo build"
+name: "Gentoo build dirty"
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
     - name: Install Dependencies
       run: |
         echo 'FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox binpkg-request-signature"' >> /etc/portage/make.conf
-        echo 'EMERGE_DEFAULT_OPTS="--binpkg-respect-use=y --getbinpkg=y"' >> /etc/portage/make.conf
+        echo 'EMERGE_DEFAULT_OPTS="--binpkg-changed-deps=y --binpkg-respect-use=y --getbinpkg=y"' >> /etc/portage/make.conf
         mkdir /etc/portage/repos.conf
         touch /etc/portage/repos.conf/gentoo.conf
         echo '[gentoo]
@@ -38,7 +38,7 @@ jobs:
         echo '>=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
         echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
         echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
-        emerge --quiet-build dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
+        emerge --quiet-build app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
         ln -s /usr/lib/llvm/16/bin/clang-format /usr/bin/
     #- name: Cache 'build' folder
     #  uses: actions/cache@v3
@@ -79,7 +79,7 @@ jobs:
     - name: Install Dependencies
       run: |
         echo 'FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox binpkg-request-signature"' >> /etc/portage/make.conf
-        echo 'EMERGE_DEFAULT_OPTS="--binpkg-respect-use=y --getbinpkg=y"' >> /etc/portage/make.conf
+        echo 'EMERGE_DEFAULT_OPTS="--binpkg-changed-deps=y --binpkg-respect-use=y --getbinpkg=y"' >> /etc/portage/make.conf
         mkdir /etc/portage/repos.conf
         touch /etc/portage/repos.conf/gentoo.conf
         echo '[gentoo]
@@ -96,7 +96,7 @@ jobs:
         echo '>=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
         echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
         echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
-        emerge --quiet-build dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
+        emerge --quiet-build app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
         ln -s /usr/lib/llvm/16/bin/clang-format /usr/bin/
     - name: Verify MySQL connection from container
       run: |
@@ -267,7 +267,7 @@ jobs:
     - name: Install Dependencies
       run: |
         echo 'FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox binpkg-request-signature"' >> /etc/portage/make.conf
-        echo 'EMERGE_DEFAULT_OPTS="--binpkg-respect-use=y --getbinpkg=y"' >> /etc/portage/make.conf
+        echo 'EMERGE_DEFAULT_OPTS="--binpkg-changed-deps=y --binpkg-respect-use=y --getbinpkg=y"' >> /etc/portage/make.conf
         mkdir /etc/portage/repos.conf
         touch /etc/portage/repos.conf/gentoo.conf
         echo '[gentoo]
@@ -284,7 +284,7 @@ jobs:
         echo '>=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
         echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
         echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
-        emerge --quiet-build dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
+        emerge --quiet-build app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
         ln -s /usr/lib/llvm/16/bin/clang-format /usr/bin/
     - name: Verify MySQL connection from container
       run: |
