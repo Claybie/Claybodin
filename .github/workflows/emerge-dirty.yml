@@ -119,7 +119,7 @@ jobs:
         mysql xidb -h mysql -uroot -proot -e "SHOW tables"
     - name: Copy settings
       run: |
-        sed -i -e 's/127.0.0.1/mysql/g' settings/default/network.lua
+        sed -i -e 's/SQL_HOST     = "127.0.0.1"/SQL_HOST     = "mysql"/g' ~/server/settings/default/network.lua
         cp settings/default/* settings/
     - name: Enable Modules
       shell: bash
@@ -319,7 +319,7 @@ jobs:
         mysql xidb -h mysql -uroot -proot -e "UPDATE xidb.zone_settings SET zoneport = 54231 WHERE zoneid % 2 = 0;"
     - name: Copy settings
       run: |
-        sed -i -e 's/127.0.0.1/mysql/g' settings/default/network.lua
+        sed -i -e 's/SQL_HOST     = "127.0.0.1"/SQL_HOST     = "mysql"/g' ~/server/settings/default/network.lua
         cp settings/default/* settings/
     - name: Startup checks
       run: |
@@ -332,8 +332,8 @@ jobs:
         printf "\nStart server processes\n"
         screen -d -m -S xi_connect ./xi_connect --log login-server.log
         screen -d -m -S xi_search ./xi_search --log search-server.log
-        screen -d -m -S xi_map ./xi_map --log map-server-0.log --ip 3.137.26.94 --port 54230
-        screen -d -m -S xi_map ./xi_map --log map-server-1.log --ip 3.137.26.94 --port 54231
+        screen -d -m -S xi_map ./xi_map --log map-server-0.log --ip 127.0.0.1 --port 54230
+        screen -d -m -S xi_map ./xi_map --log map-server-1.log --ip 127.0.0.1 --port 54231
         screen -d -m -S xi_world ./xi_world --log world-server.log
         sleep 300s
         killall screen
