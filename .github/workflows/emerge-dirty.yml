@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
 
-  Linux_Clang16_64bit:
+  Linux_GCC13_64bit:
     runs-on: ubuntu-22.04
     container: gentoo/stage3:amd64-desktop-systemd
     steps:
@@ -48,8 +48,8 @@ jobs:
     #    key: ${{ runner.os }}-clang
     - name: Configure CMake
       run: |
-        export CC=/usr/lib/llvm/16/bin/clang
-        export CXX=/usr/lib/llvm/16/bin/clang++
+        export CC=/usr/bin/gcc
+        export CXX=/usr/bin/g++
         mkdir -p build
         cmake -S . -B build
     - name: Build
@@ -67,7 +67,7 @@ jobs:
 
   Full_Startup_Checks_Linux:
     runs-on: ubuntu-22.04
-    needs: Linux_Clang16_64bit
+    needs: Linux_GCC13_64bit
     services:
       mysql:
         image: mariadb:10.6
@@ -265,7 +265,7 @@ jobs:
         
   MultiInstance_Startup_Checks_Linux:
     runs-on: ubuntu-22.04
-    needs: Linux_Clang16_64bit
+    needs: Linux_GCC13_64bit
     services:
       mysql:
         image: mariadb:10.6
