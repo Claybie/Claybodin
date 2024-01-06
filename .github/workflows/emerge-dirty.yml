@@ -28,13 +28,50 @@ jobs:
         echo '[gentoo]
         sync-type = webrsync' >> /etc/portage/repos.conf/gentoo.conf
         emerge --sync
-        emerge --quiet-build app-admin/sudo
-        echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' | EDITOR='tee -a' visudo
-        useradd -m -G wheel -s /bin/bash mog
-        su mog
-        printf cheese
-        sudo su
-        printf fries
+        emerge --quiet-build app-eselect/eselect-repository dev-vcs/git
+        eselect repository add claytabase git https://github.com/claybie/claytabase.git
+        eselect repository enable guru
+        emaint sync -r claytabase
+        emaint sync -r guru
+        touch /etc/portage/package.accept_keywords/mariadb-connector-c
+        touch /etc/portage/package.accept_keywords/mariadb-connector-python
+        touch /etc/portage/package.accept_keywords/diff-so-fancy
+        echo '>=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
+        echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
+        echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
+        emerge --quiet-build app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
+    #- name: Cache 'build' folder
+    #  uses: actions/cache@v3
+    #  with:
+    #    path: build
+    #    key: ${{ runner.os }}-clang
+    - name: Configure CMake
+      run: |
+        export CC=/usr/bin/gcc
+        export CXX=/usr/bin/g++
+        mkdir -p build
+        cmake -S . -B build
+    - name: Build
+      run: |
+        cmake --build build -j4
+          
+  Linux_Clang16_64bit:
+    runs-on: ubuntu-22.04
+    container: gentoo/stage3:amd64-desktop-systemd
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 1
+    - name: Emerge Dependencies
+      run: |
+        echo 'FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox binpkg-request-signature"' >> /etc/portage/make.conf
+        echo 'EMERGE_DEFAULT_OPTS="--binpkg-changed-deps=n --binpkg-respect-use=n --getbinpkg=y"' >> /etc/portage/make.conf
+        echo 'MAKEOPTS="-j4"' >> /etc/portage/make.conf
+        mkdir /etc/portage/repos.conf
+        touch /etc/portage/repos.conf/gentoo.conf
+        echo '[gentoo]
+        sync-type = webrsync' >> /etc/portage/repos.conf/gentoo.conf
+        emerge --sync
         emerge --quiet-build app-eselect/eselect-repository dev-vcs/git
         eselect repository add claytabase git https://github.com/claybie/claytabase.git
         eselect repository enable guru
@@ -55,8 +92,8 @@ jobs:
     #    key: ${{ runner.os }}-clang
     - name: Configure CMake
       run: |
-        export CC=/usr/bin/gcc
-        export CXX=/usr/bin/g++
+        export CC=/usr/lib/llvm/16/bin/clang
+        export CXX=/usr/lib/llvm/16/bin/clang++
         mkdir -p build
         cmake -S . -B build
     - name: Build
@@ -74,7 +111,7 @@ jobs:
 
   Full_Startup_Checks_Linux:
     runs-on: ubuntu-22.04
-    needs: Linux_GCC13_64bit
+    needs: Linux_Clang16_64bit
     services:
       mysql:
         image: mariadb:10.6
@@ -114,8 +151,10 @@ jobs:
         echo '>=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
         echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
         echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
-        emerge --quiet-build app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
+        emerge --quiet-build app-admin/sudo app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
         ln -s /usr/lib/llvm/16/bin/clang-format /usr/bin/
+        echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' | EDITOR='tee -a' visudo
+        useradd -m -G wheel -s /bin/bash mog
     - name: Verify MySQL connection from container
       run: |
         mysql -h mysql -uroot -proot -e "SHOW DATABASES"
@@ -147,8 +186,6 @@ jobs:
         retry_on: timeout
         shell: bash
         command: |
-          useradd -m -G wheel -s /bin/bash mog
-          chown mog:wheel *
           chmod +x xi_connect
           chmod +x xi_map
           chmod +x xi_search
@@ -156,11 +193,13 @@ jobs:
           ls -l
 
           printf "\nStart server processes\n"
+          chown mog:wheel *
           su mog
           screen -d -m -S xi_connect ./xi_connect --log login-server.log
           screen -d -m -S xi_search ./xi_search --log search-server.log
           screen -d -m -S xi_map ./xi_map --log map-server.log
           screen -d -m -S xi_world ./xi_world --log world-server.log
+          sudo su
 
           printf "\nWaiting 5m for servers to fully start up\n"
           sleep 300s
@@ -275,7 +314,7 @@ jobs:
         
   MultiInstance_Startup_Checks_Linux:
     runs-on: ubuntu-22.04
-    needs: Linux_GCC13_64bit
+    needs: Linux_Clang16_64bit
     services:
       mysql:
         image: mariadb:10.6
@@ -317,6 +356,8 @@ jobs:
         echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
         emerge --quiet-build app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
         ln -s /usr/lib/llvm/16/bin/clang-format /usr/bin/
+        echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' | EDITOR='tee -a' visudo
+        useradd -m -G wheel -s /bin/bash mog
     - name: Verify MySQL connection from container
       run: |
         mysql -h mysql -uroot -proot -e "SHOW DATABASES"
@@ -342,14 +383,15 @@ jobs:
         chmod +x xi_world
         ls -l
 
-        printf "\nStart server processes\n"
-        screen -d -m -S xi_connect ./xi_connect --log login-server.log
-        screen -d -m -S xi_search ./xi_search --log search-server.log
-        screen -d -m -S xi_map ./xi_map --log map-server-0.log --ip 127.0.0.1 --port 54230
-        screen -d -m -S xi_map ./xi_map --log map-server-1.log --ip 127.0.0.1 --port 54231
-        screen -d -m -S xi_world ./xi_world --log world-server.log
-        sleep 300s
-        killall screen
+         printf "\nStart server processes\n"
+          chown mog:wheel *
+          su mog
+          screen -d -m -S xi_connect ./xi_connect --log login-server.log
+          screen -d -m -S xi_search ./xi_search --log search-server.log
+          screen -d -m -S xi_map ./xi_map --log map-server-0.log --ip 127.0.0.1 --port 54230
+          screen -d -m -S xi_map ./xi_map --log map-server-1.log --ip 127.0.0.1 --port 54231
+          screen -d -m -S xi_world ./xi_world --log world-server.log
+          sudo su
     - name: Check for errors and warnings
       if: ${{ success() || failure() }}
       run: |
