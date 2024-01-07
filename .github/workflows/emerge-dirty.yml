@@ -489,7 +489,7 @@ jobs:
 
           # TODO: incorporate failure check on login issues similar to upstream workflow, which was not playing nice. 
           printf "\nLogin Check\n"
-          python3.10 << EOF
+          python3 << EOF
           from tools.headlessxi.hxiclient import HXIClient
           hxi_client = HXIClient('admin', 'admin', 'localhost')
           hxi_client.login()
