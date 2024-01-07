@@ -103,12 +103,12 @@ jobs:
     - name: CPP Formatting Checks
       if: always()
       run: |
-        clang-format-14 -version
+        clang-format -version
         touch cpp_formatting_checks.txt
         for changed_file in ${{ steps.changed-files.outputs.all }}; do
           if [[ -f $changed_file ]]; then
             if [[ $changed_file == *.cpp || $changed_file == *.h ]]; then
-              clang-format-14 -style=file -i ${changed_file}
+              clang-format -style=file -i ${changed_file}
             fi
           fi
         done
@@ -263,7 +263,6 @@ jobs:
         echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
         echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
         emerge --quiet-build app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
-        ln -s /usr/lib/llvm/16/bin/clang-format /usr/bin/
     #- name: Cache 'build' folder
     #  uses: actions/cache@v3
     #  with:
@@ -287,6 +286,56 @@ jobs:
           xi_map
           xi_search
           xi_world
+          
+  ClangTidy16_64bit:
+    needs: Sanity_Checks
+    runs-on: ubuntu-22.04
+    container: gentoo/stage3:amd64-desktop-systemd
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 1
+    - name: Emerge Dependencies
+      run: |
+        echo 'FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox binpkg-request-signature"' >> /etc/portage/make.conf
+        echo 'EMERGE_DEFAULT_OPTS="--binpkg-changed-deps=n --binpkg-respect-use=n --getbinpkg=y"' >> /etc/portage/make.conf
+        echo 'MAKEOPTS="-j4"' >> /etc/portage/make.conf
+        mkdir /etc/portage/repos.conf
+        touch /etc/portage/repos.conf/gentoo.conf
+        echo '[gentoo]
+        sync-type = webrsync' >> /etc/portage/repos.conf/gentoo.conf
+        emerge --sync
+        emerge --quiet-build app-eselect/eselect-repository dev-vcs/git
+        eselect repository add claytabase git https://github.com/claybie/claytabase.git
+        eselect repository enable guru
+        emaint sync -r claytabase
+        emaint sync -r guru
+        touch /etc/portage/package.accept_keywords/mariadb-connector-c
+        touch /etc/portage/package.accept_keywords/mariadb-connector-python
+        touch /etc/portage/package.accept_keywords/diff-so-fancy
+        echo '>=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
+        echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
+        echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
+        emerge --quiet-build app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
+    #- name: Cache 'build' folder
+    #  uses: actions/cache@v3
+    #  with:
+    #    path: build
+    #    key: ${{ runner.os }}-clang
+    - name: Configure CMake
+      run: |
+        export CC=/usr/bin/clang-16
+        export CXX=/usr/bin/clang++-16
+        mkdir -p build
+        cmake -S . -B build -DENABLE_CLANG_TIDY=ON
+    - name: Build
+      run: |
+        touch clang-tidy.txt
+        cmake --build build -j4 >> clang-tidy.txt || true
+        cat clang-tidy.txt
+        if grep -q warning\|error clang-tidy.txt; then
+            exit 1
+        fi
 
   Full_Startup_Checks:
     runs-on: ubuntu-22.04
