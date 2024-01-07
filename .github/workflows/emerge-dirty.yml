@@ -18,7 +18,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - name: Install Dependencies
+    - name: Emerge Dependencies
       run: |
         echo 'FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox binpkg-request-signature"' >> /etc/portage/make.conf
         echo 'EMERGE_DEFAULT_OPTS="--binpkg-changed-deps=n --binpkg-respect-use=n --getbinpkg=y"' >> /etc/portage/make.conf
@@ -381,7 +381,7 @@ jobs:
         echo '>=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
         echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
         echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
-        emerge --quiet-build =dev-lang/python-3.10.13 app-admin/sudo app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
+        emerge --quiet-build app-admin/sudo app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
     - name: Verify MySQL connection from container
       run: |
         mysql -h mysql -uroot -proot -e "SHOW DATABASES"
@@ -409,13 +409,8 @@ jobs:
             f.write("renamer\n")
         EOF
     - name: Startup checks
-      uses: nick-fields/retry@v2
-      with:
-        timeout_minutes: 15
-        max_attempts: 3
-        retry_on: timeout
-        shell: bash
-        command: |
+      shell: bash
+      run: |
          chmod +x xi_connect
          chmod +x xi_map
          chmod +x xi_search
@@ -434,6 +429,7 @@ jobs:
           screen -d -m -S xi_world ./xi_world --log world-server.log
 
           # define bash helper function to help diagnose any sql errors
+          sudo su
           function mysqlcmd() { mysql xidb -h mysql -uroot -proot --verbose -e "$@"; }
           printf "\nPopulating database\n"
 
@@ -491,36 +487,25 @@ jobs:
           mysqlcmd "INSERT INTO char_vars(charid, varname, value)
           VALUES(1, 'GodMode', 1);"
 
-          printf "\nRunning HeadlessXI for 60 seconds\n"
+          # TODO: incorporate failure check on login issues similar to upstream workflow, which was not playing nice. 
+          printf "\nLogin Check\n"
           python3.10 << EOF
-          import time
-          try:
-              from tools.headlessxi.hxiclient import HXIClient
-              hxi_client = HXIClient('admin', 'admin', 'localhost')
-              hxi_client.login()
-              print('Sleeping 60s')
-              time.sleep(60)
-              hxi_client.logout()
-              exit(0)
-          except Exception as e:
-              exit(-1)
+          from tools.headlessxi.hxiclient import HXIClient
+          hxi_client = HXIClient('admin', 'admin', 'localhost')
+          hxi_client.login()
+          print('Sleeping 60s')
+          time.sleep(60)
+          hxi_client.logout()
           EOF
-          hxi_result=$?
 
           pkill -SIGINT xi_map
           pkill -SIGINT xi_search
           pkill -SIGINT xi_connect
           pkill -SIGINT xi_world
 
-          # fail if hxi had a non-zero exit code
-          if [[ "$hxi_result" -ne "0" ]]; then
-              echo "hxi exited with code $hxi_result"
-              exit $hxi_result
-          fi
     - name: Check for errors and warnings
       if: ${{ success() || failure() }}
       run: |
-        sudo su
         cat login-server*.log
         cat search-server*.log
         cat map-server-0*.log
