@@ -360,7 +360,7 @@ jobs:
       with:
         name: linux_executables
         path: .
-    - name: Install Dependencies
+    - name: Emerge Dependencies
       run: |
         echo 'FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox binpkg-request-signature"' >> /etc/portage/make.conf
         echo 'EMERGE_DEFAULT_OPTS="--binpkg-changed-deps=n --binpkg-respect-use=n --getbinpkg=y"' >> /etc/portage/make.conf
@@ -381,7 +381,7 @@ jobs:
         echo '>=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
         echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
         echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
-        emerge --quiet-build app-admin/sudo app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
+        emerge --quiet-build =dev-lang/python-3.10.13 app-admin/sudo app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
     - name: Verify MySQL connection from container
       run: |
         mysql -h mysql -uroot -proot -e "SHOW DATABASES"
