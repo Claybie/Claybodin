@@ -152,9 +152,6 @@ jobs:
         echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
         echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
         emerge --quiet-build app-admin/sudo app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
-        ln -s /usr/lib/llvm/16/bin/clang-format /usr/bin/
-        echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' | EDITOR='tee -a' visudo
-        useradd -m -G wheel -s /bin/bash mog
     - name: Verify MySQL connection from container
       run: |
         mysql -h mysql -uroot -proot -e "SHOW DATABASES"
@@ -186,25 +183,27 @@ jobs:
         retry_on: timeout
         shell: bash
         command: |
-          chmod +x xi_connect
-          chmod +x xi_map
-          chmod +x xi_search
-          chmod +x xi_world
-          ls -l
+         chmod +x xi_connect
+         chmod +x xi_map
+         chmod +x xi_search
+         chmod +x xi_world
+         echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' | EDITOR='tee -a' visudo
+         useradd -m -G wheel -s /bin/bash mog
+         chown mog:wheel *
+         su mog
+         ls -l
 
           printf "\nStart server processes\n"
-          chown mog:wheel *
-          su mog
           screen -d -m -S xi_connect ./xi_connect --log login-server.log
           screen -d -m -S xi_search ./xi_search --log search-server.log
           screen -d -m -S xi_map ./xi_map --log map-server.log
           screen -d -m -S xi_world ./xi_world --log world-server.log
-          sudo su
 
           printf "\nWaiting 5m for servers to fully start up\n"
           sleep 300s
 
           # define bash helper function to help diagnose any sql errors
+          sudo su
           function mysqlcmd() { mysql xidb -h mysql -uroot -proot --verbose -e "$@"; }
           printf "\nPopulating database\n"
 
@@ -354,10 +353,7 @@ jobs:
         echo '>=dev-db/mariadb-connector-c-3.3.4 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-c
         echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
         echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
-        emerge --quiet-build app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
-        ln -s /usr/lib/llvm/16/bin/clang-format /usr/bin/
-        echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' | EDITOR='tee -a' visudo
-        useradd -m -G wheel -s /bin/bash mog
+        emerge --quiet-build app-admin/sudo app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang 
     - name: Verify MySQL connection from container
       run: |
         mysql -h mysql -uroot -proot -e "SHOW DATABASES"
@@ -377,24 +373,26 @@ jobs:
         cp settings/default/* settings/
     - name: Startup checks
       run: |
-        chmod +x xi_connect
-        chmod +x xi_map
-        chmod +x xi_search
-        chmod +x xi_world
-        ls -l
-
+         chmod +x xi_connect
+         chmod +x xi_map
+         chmod +x xi_search
+         chmod +x xi_world
+         echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' | EDITOR='tee -a' visudo
+         useradd -m -G wheel -s /bin/bash mog
+         chown mog:wheel *
+         su mog
+         ls -l
+         
          printf "\nStart server processes\n"
-          chown mog:wheel *
-          su mog
           screen -d -m -S xi_connect ./xi_connect --log login-server.log
           screen -d -m -S xi_search ./xi_search --log search-server.log
           screen -d -m -S xi_map ./xi_map --log map-server-0.log --ip 127.0.0.1 --port 54230
           screen -d -m -S xi_map ./xi_map --log map-server-1.log --ip 127.0.0.1 --port 54231
           screen -d -m -S xi_world ./xi_world --log world-server.log
-          sudo su
     - name: Check for errors and warnings
       if: ${{ success() || failure() }}
       run: |
+        sudo su
         cat login-server*.log
         cat search-server*.log
         cat map-server-0*.log
