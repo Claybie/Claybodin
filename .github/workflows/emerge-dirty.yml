@@ -409,7 +409,13 @@ jobs:
             f.write("renamer\n")
         EOF
     - name: Startup checks
-      run: |
+      uses: nick-fields/retry@v2
+      with:
+        timeout_minutes: 15
+        max_attempts: 3
+        retry_on: timeout
+        shell: bash
+        command: |
          chmod +x xi_connect
          chmod +x xi_map
          chmod +x xi_search
