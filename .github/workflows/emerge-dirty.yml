@@ -428,7 +428,7 @@ jobs:
           screen -d -m -S xi_world ./xi_world --log world-server.log
 
           # define bash helper function to help diagnose any sql errors
-          function mysqlcmd() { mysql xidb -h 127.0.0.1 -uroot -proot --verbose -e "$@"; }
+          function mysqlcmd() { mysql xidb -h mysql -uroot -proot --verbose -e "$@"; }
           printf "\nPopulating database\n"
 
           # Clean out anything already there (just in case)
