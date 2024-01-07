@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        fetch-depth: 1
+        fetch-depth: 0
     - name: Install Dependencies
       run: |
         echo 'FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox binpkg-request-signature"' >> /etc/portage/make.conf
@@ -112,6 +112,7 @@ jobs:
             fi
           fi
         done
+        git config --global --add safe.directory "$GITHUB_WORKSPACE"
         git diff --color >> cpp_formatting_checks.txt
         git reset --hard
         if [ -s cpp_formatting_checks.txt ]
