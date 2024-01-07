@@ -486,7 +486,7 @@ jobs:
           VALUES(1, 'GodMode', 1);"
 
           printf "\nRunning HeadlessXI for 60 seconds\n"
-          python3 << EOF
+          python3.10 << EOF
           import time
           try:
               from tools.headlessxi.hxiclient import HXIClient
