@@ -35,7 +35,7 @@ xi.settings.network =
     HTTP_PORT   = 8088,
 
     -- Central message server settings (ensure these are the same on both all map servers and the central (lobby) server
-    ZMQ_IP   = "127.0.0.1",
+    ZMQ_IP   = "mysql",
     ZMQ_PORT = 54003,
 
     -- ===========================
@@ -88,15 +88,15 @@ xi.settings.network =
     -- (allow and deny) is used
 
     TCP_ALLOW = "",
-    --TCP_ALLOW = "127.0.0.1,192.168.0.0/16",
-    --TCP_ALLOW = "127.0.0.1"
+    --TCP_ALLOW = "mysql,192.168.0.0/16",
+    --TCP_ALLOW = "mysql"
     --TCP_ALLOW = "192.168.0.0/16"
     --TCP_ALLOW = "10.0.0.0/255.0.0.0"
     --TCP_ALLOW = "all"
 
     TCP_DENY = "",
     --TCP_DENY = "10.0.0.0/8,192.168.0.0/16",
-    --TCP_DENY = "127.0.0.1",
+    --TCP_DENY = "mysql",
     --TCP_DENY = "10.0.0.0/255.0.0.0",
 
     -- ===========================
