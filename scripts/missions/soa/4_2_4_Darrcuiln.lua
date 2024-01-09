@@ -12,6 +12,7 @@ local mission = Mission:new(xi.mission.log_id.SOA, xi.mission.id.soa.DARRCUILN)
 mission.reward =
 {
     keyItem     = xi.ki.TUFT_OF_GOLDEN_FUR,
+    item        = 10183,
     nextMission = { xi.mission.log_id.SOA, xi.mission.id.soa.THE_GATES },
 }
 
