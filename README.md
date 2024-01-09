@@ -4,19 +4,20 @@
 </p>
 
 <p align="center">
+<a href="https://github.com/claybie/LeafSpringCog/actions/workflows/Gentoo.yml?query=base"><img src="https://github.com/claybie/LeafSpringCog/actions/workflows/Gentoo.yml/badge.svg"/></a>
 <a href="https://github.com/Claybie/claybodin/actions/workflows/Ubuntu.yml?query=base"><img src="https://github.com/claybie/claybodin/actions/workflows/Ubuntu.yml/badge.svg"/></a>
 <a href="https://github.com/Claybie/claybodin/actions/workflows/codeql-analysis.yml?query=base"><img src="https://github.com/claybie/claybodin/actions/workflows/codeql-analysis.yml/badge.svg"/></a>
 <a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg"/></a>
 
 </p>
 
-LeafSpringCog is a fork of LandSandBoat, and is used to run Claybodin (a server I keep online mostly for myself but is open to the public). It differs from LSB in the folowing ways:
+LeafSpringCog is a fork of LandSandBoat, and is what the Claybodin server runs on. It differs from LSB in the folowing ways:
 
--   Structured to build on and tested for running on Gentoo Linux as well as Ubuntu (LandSandBoat has "official" support for Ubuntu and Windows only). While it may build on other Linux distros, you will not be able to build on Windows from this repo.
+-   Structured to build on and tested for running on Gentoo Linux as well as Ubuntu (LandSandBoat has "official" support for Ubuntu and Windows only). This is mostly for fun, but does serve the purpose of testing the project when built with newer versions of GCC and Clang than what Ubuntu LTS provides. Please note that this fork is intended to build on Linux only.
 
 -   Host a gameplay envorinment with specific changes from retail, including:
     -   Many Ciphers that are normally rewarded from Login Campaign points have been changed to rewards from quests or missions that pertain to those characters. The roadmap is for all Trusts to be acquired via storyline method, rather than with currency, FoV, RoE etc. Claybodin does not run a Login Campaign. 
-    -   Weapon/Magic skillups have been removed; characters are always at max skill for their level. This QoL change is long overdue considering the state of the game in modern times.
+    -   Weapon/Magic skillups have been removed; characters are always at max skill for their level. I consider this to line up better with the other QoL changes implemented in the modern era.
 
 Other changes may happen in the future.
 
