@@ -1,11 +1,6 @@
 name: "Ubuntu build"
 
 on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
   push:
     branches:
       - base
@@ -18,23 +13,11 @@ jobs:
   Sanity_Checks:
     runs-on: ubuntu-22.04
     steps:
-    # workaround for broken clang on ubuntu runner until fixed: https://github.com/actions/runner-images/issues/8659
-    - uses: claywar/workaround8649@b59699cec47ef4f0db8cf5564e0dc30a74cc8888
-      with:
-        os: ubuntu-22.04
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Install Dependencies
       run: |
-        # https://mariadb.com/docs/connect/programming-languages/c/install/#connector-c-install-repo-configure-cs
-        # Ubuntu is using an old libmariadb but python3 pip expects it to be newer. Use the mariadb provided deb packages.
-        wget -P /tmp/ https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
-        # Note: there is a sha256sum command here according to the above link, but I am unsure if this file may change with time
-        chmod +x /tmp/mariadb_repo_setup
-        sudo /tmp/mariadb_repo_setup --mariadb-server-version="mariadb-10.6"
-        # Remove the above when it's no longer necessary
-
         sudo apt-get update
         sudo apt-get install -y software-properties-common cppcheck luajit-5.1-dev luarocks mariadb-server-10.6 mariadb-client-10.6 libmariadb-dev-compat binutils-dev
         pip install -r tools/requirements.txt
@@ -192,14 +175,10 @@ jobs:
         fi
         exit 0
 
-  Linux_Clang14_64bit:
+  Clang14_64bit:
     needs: Sanity_Checks
     runs-on: ubuntu-22.04
     steps:
-    # workaround for broken clang on ubuntu runner until fixed: https://github.com/actions/runner-images/issues/8659
-    - uses: claywar/workaround8649@b59699cec47ef4f0db8cf5564e0dc30a74cc8888
-      with:
-        os: ubuntu-22.04
     - uses: actions/checkout@v3
       with:
         fetch-depth: 1
@@ -231,14 +210,10 @@ jobs:
           xi_search
           xi_world
 
-  Linux_ClangTidy14_64bit:
+  ClangTidy14_64bit:
     needs: Sanity_Checks
     runs-on: ubuntu-22.04
     steps:
-    # workaround for broken clang on ubuntu runner until fixed: https://github.com/actions/runner-images/issues/8659
-    - uses: claywar/workaround8649@b59699cec47ef4f0db8cf5564e0dc30a74cc8888
-      with:
-        os: ubuntu-22.04
     - uses: actions/checkout@v3
       with:
         fetch-depth: 1
@@ -266,14 +241,10 @@ jobs:
             exit 1
         fi
 
-  Linux_GCC11_64bit:
+  GCC12_64bit:
     needs: Sanity_Checks
     runs-on: ubuntu-22.04
     steps:
-    # workaround for broken clang on ubuntu runner until fixed: https://github.com/actions/runner-images/issues/8659
-    - uses: claywar/workaround8649@b59699cec47ef4f0db8cf5564e0dc30a74cc8888
-      with:
-        os: ubuntu-22.04
     - uses: actions/checkout@v3
       with:
         fetch-depth: 1
@@ -288,17 +259,17 @@ jobs:
     #    key: ${{ runner.os }}-gcc
     - name: Configure CMake
       run: |
-        export CC=/usr/bin/gcc-11
-        export CXX=/usr/bin/g++-11
+        export CC=/usr/bin/gcc-12
+        export CXX=/usr/bin/g++-12
         mkdir -p build
         CFLAGS=-m64 CXXFLAGS=-m64 LDFLAGS=-m64 cmake -S . -B build
     - name: Build
       run: |
         cmake --build build -j4
 
-  Full_Startup_Checks_Linux:
+  Full_Startup_Checks:
     runs-on: ubuntu-22.04
-    needs: Linux_Clang14_64bit
+    needs: Clang14_64bit
     services:
       mysql:
         image: mariadb:10.6
@@ -309,10 +280,6 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
     steps:
-    # workaround for broken clang on ubuntu runner until fixed: https://github.com/actions/runner-images/issues/8659
-    - uses: claywar/workaround8649@b59699cec47ef4f0db8cf5564e0dc30a74cc8888
-      with:
-        os: ubuntu-22.04
     - uses: actions/checkout@v3
       with:
         fetch-depth: 1
@@ -477,9 +444,9 @@ jobs:
             exit -1
         fi
 
-  MultiInstance_Startup_Checks_Linux:
+  MultiInstance_Startup_Checks:
     runs-on: ubuntu-22.04
-    needs: Linux_Clang14_64bit
+    needs: Clang14_64bit
     services:
       mysql:
         image: mariadb:10.6
@@ -490,10 +457,6 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
     steps:
-    # workaround for broken clang on ubuntu runner until fixed: https://github.com/actions/runner-images/issues/8659
-    - uses: claywar/workaround8649@b59699cec47ef4f0db8cf5564e0dc30a74cc8888
-      with:
-        os: ubuntu-22.04
     - uses: actions/checkout@v3
       with:
         fetch-depth: 1
