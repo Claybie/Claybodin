@@ -11,6 +11,7 @@ local mission = Mission:new(xi.mission.log_id.COP, xi.mission.id.cop.A_VESSEL_WI
 
 mission.reward =
 {
+    item        = 10114,
     nextMission = { xi.mission.log_id.COP, xi.mission.id.cop.THE_ROAD_FORKS },
 }
 
