@@ -326,8 +326,8 @@ jobs:
     #    key: ${{ runner.os }}-clang
     - name: Configure CMake
       run: |
-        export CC=/usr/lib/llvm/16/bin/clang-17
-        export CXX=/usr/lib/llvm/16/bin/clang++-17
+        export CC=/usr/lib/llvm/17/bin/clang
+        export CXX=/usr/lib/llvm/17/bin/clang++
         mkdir -p build
         cmake -S . -B build -DENABLE_CLANG_TIDY=ON
     - name: Build
