@@ -40,7 +40,7 @@ jobs:
         echo '>=dev-python/mariadb-1.1.6 ~amd64' >> /etc/portage/package.accept_keywords/mariadb-connector-python
         echo '>=app-misc/diff-so-fancy-1.4.3-r1 ~amd64' >> /etc/portage/package.accept_keywords/diff-so-fancy
         emerge --quiet-build app-misc/screen dev-db/mariadb dev-lang/luajit net-libs/zeromq dev-python/black dev-python/colorama dev-python/GitPython dev-python/mariadb dev-python/pylint dev-python/pyyaml dev-python/pyzmq dev-python/regex dev-util/cppcheck dev-lua/luacheck app-misc/diff-so-fancy sys-devel/clang
-        ln -s /usr/lib/llvm/16/bin/clang-format /usr/bin/
+        ln -s /usr/lib/llvm/17/bin/clang-format /usr/bin/
     - id: changed-files
       name: Get Changed Files
       uses: Ana06/get-changed-files@v2.2.0
@@ -235,7 +235,7 @@ jobs:
       run: |
         cmake --build build -j4
           
-  Clang16_64bit:
+  Clang17_64bit:
     needs: Sanity_Checks
     runs-on: ubuntu-22.04
     container: gentoo/stage3:amd64-desktop-systemd
@@ -272,8 +272,8 @@ jobs:
     #    key: ${{ runner.os }}-clang
     - name: Configure CMake
       run: |
-        export CC=/usr/lib/llvm/16/bin/clang
-        export CXX=/usr/lib/llvm/16/bin/clang++
+        export CC=/usr/lib/llvm/17/bin/clang
+        export CXX=/usr/lib/llvm/17/bin/clang++
         mkdir -p build
         cmake -S . -B build
     - name: Build
@@ -289,7 +289,7 @@ jobs:
           xi_search
           xi_world
           
-  ClangTidy16_64bit:
+  ClangTidy17_64bit:
     needs: Sanity_Checks
     runs-on: ubuntu-22.04
     container: gentoo/stage3:amd64-desktop-systemd
@@ -326,8 +326,8 @@ jobs:
     #    key: ${{ runner.os }}-clang
     - name: Configure CMake
       run: |
-        export CC=/usr/lib/llvm/16/bin/clang-16
-        export CXX=/usr/lib/llvm/16/bin/clang++-16
+        export CC=/usr/lib/llvm/17/bin/clang
+        export CXX=/usr/lib/llvm/17/bin/clang++
         mkdir -p build
         cmake -S . -B build -DENABLE_CLANG_TIDY=ON
     - name: Build
@@ -341,7 +341,7 @@ jobs:
         
   Startup_Checks:
     runs-on: ubuntu-22.04
-    needs: Clang16_64bit
+    needs: Clang17_64bit
     services:
       mysql:
         image: mariadb:10.6
