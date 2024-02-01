@@ -82,7 +82,7 @@ jobs:
           exit 1
         fi
         exit 0
-    - name: CPP Formatting Checks
+    - name: CPP Formatting Checks (clang-format-15)
       if: always()
       run: |
         clang-format-15 -version
@@ -259,8 +259,8 @@ jobs:
     #    key: ${{ runner.os }}-gcc
     - name: Configure CMake
       run: |
-        export CC=/usr/bin/gcc-12
-        export CXX=/usr/bin/g++-12
+        export CC=/usr/bin/gcc-13
+        export CXX=/usr/bin/g++-13
         mkdir -p build
         CFLAGS=-m64 CXXFLAGS=-m64 LDFLAGS=-m64 cmake -S . -B build
     - name: Build

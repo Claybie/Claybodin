@@ -30,7 +30,7 @@ CREATE TABLE `item_weapon` (
   `dmg` int(10) unsigned NOT NULL DEFAULT '0',
   `unlock_points` smallint(5) NOT NULL DEFAULT '0',
   PRIMARY KEY (`itemId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 AVG_ROW_LENGTH=54 PACK_KEYS=1 CHECKSUM=1;
+) ENGINE=Aria TRANSACTIONAL=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci AVG_ROW_LENGTH=54 PACK_KEYS=1 CHECKSUM=1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3601,7 +3601,7 @@ INSERT INTO `item_weapon` VALUES (20617,'homestead_dagger',2,0,228,228,188,1,1,1
 INSERT INTO `item_weapon` VALUES (20618,'sandung',2,0,242,242,188,1,1,200,102,0);
 INSERT INTO `item_weapon` VALUES (20619,'polyhymnia',2,0,242,242,188,1,1,194,95,0);
 INSERT INTO `item_weapon` VALUES (20620,'sabebus',2,0,242,242,188,1,1,196,101,0);
-INSERT INTO `item_weapon` VALUES (20621,'nanti_knife',2,0,228,228,167,1,1,195,100,0);
+INSERT INTO `item_weapon` VALUES (20621,'nanti_knife',2,0,215,215,167,1,1,195,100,0);
 INSERT INTO `item_weapon` VALUES (20622,'nanti_knife_+1',2,0,228,228,177,1,1,190,101,0);
 INSERT INTO `item_weapon` VALUES (20623,'leisilonu_+2',2,0,242,242,188,1,1,183,90,0);
 INSERT INTO `item_weapon` VALUES (20624,'eminent_dagger',2,0,203,203,167,1,1,183,85,0);
