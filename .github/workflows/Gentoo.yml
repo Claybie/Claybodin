@@ -23,6 +23,7 @@ jobs:
         echo 'FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox binpkg-request-signature"' >> /etc/portage/make.conf
         echo 'EMERGE_DEFAULT_OPTS="--binpkg-changed-deps=n --binpkg-respect-use=n --getbinpkg=y"' >> /etc/portage/make.conf
         echo 'MAKEOPTS="-j4"' >> /etc/portage/make.conf
+        echo 'USE="-qt5 -qt6 -gtk"' >> /etc/portage/make.conf
         mkdir /etc/portage/repos.conf
         touch /etc/portage/repos.conf/gentoo.conf
         echo '[gentoo]
@@ -203,6 +204,7 @@ jobs:
         echo 'FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox binpkg-request-signature"' >> /etc/portage/make.conf
         echo 'EMERGE_DEFAULT_OPTS="--binpkg-changed-deps=n --binpkg-respect-use=n --getbinpkg=y"' >> /etc/portage/make.conf
         echo 'MAKEOPTS="-j4"' >> /etc/portage/make.conf
+        echo 'USE="-qt5 -qt6 -gtk"' >> /etc/portage/make.conf
         mkdir /etc/portage/repos.conf
         touch /etc/portage/repos.conf/gentoo.conf
         echo '[gentoo]
@@ -248,6 +250,7 @@ jobs:
         echo 'FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox binpkg-request-signature"' >> /etc/portage/make.conf
         echo 'EMERGE_DEFAULT_OPTS="--binpkg-changed-deps=n --binpkg-respect-use=n --getbinpkg=y"' >> /etc/portage/make.conf
         echo 'MAKEOPTS="-j4"' >> /etc/portage/make.conf
+        echo 'USE="-qt5 -qt6 -gtk"' >> /etc/portage/make.conf
         mkdir /etc/portage/repos.conf
         touch /etc/portage/repos.conf/gentoo.conf
         echo '[gentoo]
@@ -302,6 +305,7 @@ jobs:
         echo 'FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox binpkg-request-signature"' >> /etc/portage/make.conf
         echo 'EMERGE_DEFAULT_OPTS="--binpkg-changed-deps=n --binpkg-respect-use=n --getbinpkg=y"' >> /etc/portage/make.conf
         echo 'MAKEOPTS="-j4"' >> /etc/portage/make.conf
+        echo 'USE="-qt5 -qt6 -gtk"' >> /etc/portage/make.conf
         mkdir /etc/portage/repos.conf
         touch /etc/portage/repos.conf/gentoo.conf
         echo '[gentoo]
@@ -365,6 +369,7 @@ jobs:
         echo 'FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox binpkg-request-signature"' >> /etc/portage/make.conf
         echo 'EMERGE_DEFAULT_OPTS="--binpkg-changed-deps=n --binpkg-respect-use=n --getbinpkg=y"' >> /etc/portage/make.conf
         echo 'MAKEOPTS="-j4"' >> /etc/portage/make.conf
+        echo 'USE="-qt5 -qt6 -gtk"' >> /etc/portage/make.conf
         mkdir /etc/portage/repos.conf
         touch /etc/portage/repos.conf/gentoo.conf
         echo '[gentoo]
