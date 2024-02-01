@@ -3,7 +3,7 @@ name: "Gentoo build"
 on:
   push:
     branches:
-      - base
+      - gentoo-workflow-clang17
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
@@ -28,6 +28,10 @@ jobs:
         echo '[gentoo]
         sync-type = webrsync' >> /etc/portage/repos.conf/gentoo.conf
         emerge --sync
+        emerge --quiet-build --oneshot dev-qt/qtcore
+        emerge --quiet-build --oneshot dev-qt/qtgui
+        emerge --quiet-build --oneshot dev-qt/qtdbus
+        emerge --quiet-build --oneshot sys-libs/libomp
         emerge --quiet-build app-eselect/eselect-repository dev-vcs/git
         eselect repository add claytabase git https://github.com/claybie/claytabase.git
         eselect repository enable guru
@@ -208,6 +212,10 @@ jobs:
         echo '[gentoo]
         sync-type = webrsync' >> /etc/portage/repos.conf/gentoo.conf
         emerge --sync
+        emerge --quiet-build --oneshot dev-qt/qtcore
+        emerge --quiet-build --oneshot dev-qt/qtgui
+        emerge --quiet-build --oneshot dev-qt/qtdbus
+        emerge --quiet-build --oneshot sys-libs/libomp
         emerge --quiet-build app-eselect/eselect-repository dev-vcs/git
         eselect repository add claytabase git https://github.com/claybie/claytabase.git
         eselect repository enable guru
@@ -253,6 +261,10 @@ jobs:
         echo '[gentoo]
         sync-type = webrsync' >> /etc/portage/repos.conf/gentoo.conf
         emerge --sync
+        emerge --quiet-build --oneshot dev-qt/qtcore
+        emerge --quiet-build --oneshot dev-qt/qtgui
+        emerge --quiet-build --oneshot dev-qt/qtdbus
+        emerge --quiet-build --oneshot sys-libs/libomp
         emerge --quiet-build app-eselect/eselect-repository dev-vcs/git
         eselect repository add claytabase git https://github.com/claybie/claytabase.git
         eselect repository enable guru
@@ -307,6 +319,10 @@ jobs:
         echo '[gentoo]
         sync-type = webrsync' >> /etc/portage/repos.conf/gentoo.conf
         emerge --sync
+        emerge --quiet-build --oneshot dev-qt/qtcore
+        emerge --quiet-build --oneshot dev-qt/qtgui
+        emerge --quiet-build --oneshot dev-qt/qtdbus
+        emerge --quiet-build --oneshot sys-libs/libomp
         emerge --quiet-build app-eselect/eselect-repository dev-vcs/git
         eselect repository add claytabase git https://github.com/claybie/claytabase.git
         eselect repository enable guru
@@ -370,6 +386,10 @@ jobs:
         echo '[gentoo]
         sync-type = webrsync' >> /etc/portage/repos.conf/gentoo.conf
         emerge --sync
+        emerge --quiet-build --oneshot dev-qt/qtcore
+        emerge --quiet-build --oneshot dev-qt/qtgui
+        emerge --quiet-build --oneshot dev-qt/qtdbus
+        emerge --quiet-build --oneshot sys-libs/libomp
         emerge --quiet-build app-eselect/eselect-repository dev-vcs/git
         eselect repository add claytabase git https://github.com/claybie/claytabase.git
         eselect repository enable guru
